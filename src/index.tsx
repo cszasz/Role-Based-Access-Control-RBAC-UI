@@ -84,11 +84,11 @@ const Rbac = ({
                 return ret;
             }
 
-            Object.keys(resource._resources).forEach((item) => {
+            Object.keys(resource._resources).forEach(item => {
                 if (Object.keys(resource._resources[item]._resources).length > 0) {
                     ret.push(item);
                 }
-                ret = [...ret, ...recurse(resource._resources[item])]
+                ret = [...ret, ...recurse(resource._resources[item])];
             });
 
             return ret;
@@ -101,7 +101,7 @@ const Rbac = ({
         setPermissionsTable(newData);
         const ret: PermissionsObject = { _resources: {}, _roles: {} };
 
-        Object.keys(newData._roles).forEach((item) => {
+        Object.keys(newData._roles).forEach(item => {
             ret._roles[item] = newData._roles[item];
         });
 
@@ -114,7 +114,7 @@ const Rbac = ({
 
         if (isDelete) {
             const allAvailableResources = getAllResources(newPermissions);
-            Object.keys(newPermissions._roles).forEach((item) => {
+            Object.keys(newPermissions._roles).forEach(item => {
                 newPermissions._roles[item].permissions = newPermissions._roles[item].permissions.filter((t: string) =>
                     allAvailableResources.includes(t)
                 );

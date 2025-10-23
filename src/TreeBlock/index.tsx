@@ -20,6 +20,8 @@ import {
     ThemeType,
 } from '../types';
 
+console.log('React version2:', React.version);
+
 const DEFAULT_FORBIDDEN_CHARS_REGEX = /[^A-Za-z0-9]/g;
 
 interface TreeBlockProps {
@@ -320,10 +322,8 @@ const DialogContainer = styled.div`
     padding: 15px;
     min-width: 450px;
 
-    ${
-        // @ts-ignore
-        ItemResource
-    } {
+    ${// @ts-ignore
+    ItemResource} {
         position: initial;
         padding-left: 10px;
     }

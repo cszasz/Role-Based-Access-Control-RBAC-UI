@@ -30,7 +30,7 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons }: TreeGenerat
 
     return (
         <TreeBlockContainer>
-            {Object.keys(items).map((resource) => {
+            {Object.keys(items).map(resource => {
                 const hasChildren = Object.keys(items[resource]._resources).length > 0;
                 return (
                     <StyledTreeItem
@@ -59,7 +59,7 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons }: TreeGenerat
                                         }}
                                     />
                                     <Icons.TreeDeleteIcon
-                                        style={{ fontSize: '16px' }}
+                                        style={{ fontSize: '36px' }}
                                         color="error"
                                         onClick={(e: React.MouseEvent) => {
                                             handleDelete(e, resource);
