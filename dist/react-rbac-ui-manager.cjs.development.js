@@ -95,7 +95,7 @@ var _TreeGenerator = function TreeGenerator(_ref) {
         }
       }), React__default.createElement(ItemResourceName, {
         "$hasChildren": hasChildren
-      }, items[resource].name), React__default.createElement(ItemResource, null, resource), React__default.createElement(ActionsContainer, null, React__default.createElement(Icons.TreeAddIcon, {
+      }, items[resource].name), React__default.createElement(ItemResource, null, items[resource].description || resource), React__default.createElement(ActionsContainer, null, React__default.createElement(Icons.TreeAddIcon, {
         style: {
           fontSize: '16px'
         },
@@ -111,7 +111,7 @@ var _TreeGenerator = function TreeGenerator(_ref) {
         }
       }), React__default.createElement(Icons.TreeDeleteIcon, {
         style: {
-          fontSize: '36px'
+          fontSize: '16px'
         },
         color: "error",
         onClick: function onClick(e) {

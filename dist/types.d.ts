@@ -32,6 +32,7 @@ export interface ResourcesItem {
     _resources: {
         [k: string]: {
             name: string;
+            description: string;
         } & ResourcesItem;
     };
 }

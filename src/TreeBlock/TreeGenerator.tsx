@@ -44,7 +44,7 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons }: TreeGenerat
                                     <Icons.TreeNodeIcon color="primary" style={{ fontSize: '11px' }} />
                                 )}
                                 <ItemResourceName $hasChildren={hasChildren}>{items[resource].name}</ItemResourceName>
-                                <ItemResource>{resource}</ItemResource>
+                                <ItemResource>{items[resource].description || resource}</ItemResource>
                                 <ActionsContainer>
                                     <Icons.TreeAddIcon
                                         style={{ fontSize: '16px' }}
@@ -59,7 +59,7 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons }: TreeGenerat
                                         }}
                                     />
                                     <Icons.TreeDeleteIcon
-                                        style={{ fontSize: '36px' }}
+                                        style={{ fontSize: '16px' }}
                                         color="error"
                                         onClick={(e: React.MouseEvent) => {
                                             handleDelete(e, resource);
