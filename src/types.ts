@@ -51,6 +51,7 @@ export interface ResourcesItem {
 interface RoleItem {
     _roles: {
         [k: string]: {
+            readonly: boolean;
             permissions: string[];
         };
     };

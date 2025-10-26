@@ -460,6 +460,9 @@ var CheckboxBlock = function CheckboxBlock(_ref) {
     });
     return found;
   };
+  var isReadOnly = function isReadOnly(role) {
+    return permissionsTable._roles[role].readonly;
+  };
   var handleCheckboxChange = function handleCheckboxChange(checked, role, perm) {
     if (checked) {
       [].concat(permissionsTable._roles[role]['permissions']).forEach(function (item) {
@@ -529,7 +532,8 @@ var CheckboxBlock = function CheckboxBlock(_ref) {
       setRolesOrdered([].concat(rolesOrdered));
     } else {
       permissionsTable._roles[roleName] = {
-        permissions: []
+        permissions: [],
+        readonly: false
       };
       rolesOrdered.push(roleName);
       setRolesOrdered([].concat(rolesOrdered));
@@ -591,7 +595,7 @@ var CheckboxBlock = function CheckboxBlock(_ref) {
   }, React__default.createElement(Components.AddRole, null))), React__default.createElement(StyledTable, null, React__default.createElement(StyledTHead, null, React__default.createElement(TableRow, null, rolesOrdered.map(function (row) {
     return React__default.createElement(StyledCell, {
       key: row
-    }, React__default.createElement(Components.RoleTag, null, row), React__default.createElement(RoleActions, null, React__default.createElement(Icons.EditIcon, {
+    }, React__default.createElement(Components.RoleTag, null, row), isReadOnly(row) ? null : React__default.createElement(RoleActions, null, React__default.createElement(Icons.EditIcon, {
       fontSize: "small",
       onClick: function onClick() {
         handleOpenModal(row, false, true);

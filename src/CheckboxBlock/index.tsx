@@ -88,10 +88,13 @@ const CheckboxBlock = ({
 
         return found;
     };
+    const isReadOnly = (role: string): boolean => {
+        return permissionsTable._roles[role].readonly;
+    };
 
     const handleCheckboxChange = (checked: boolean, role: string, perm: string): void => {
         if (checked) {
-            [...permissionsTable._roles[role]['permissions']].forEach((item) => {
+            [...permissionsTable._roles[role]['permissions']].forEach(item => {
                 if (!item.startsWith(`${perm}.`)) {
                     return;
                 }
@@ -132,7 +135,7 @@ const CheckboxBlock = ({
     const handleDeleteRole = () => {
         delete permissionsTable._roles[currentModalRole];
         onChange(Object.assign({}, permissionsTable));
-        setRolesOrdered(rolesOrdered.filter((item) => item !== currentModalRole));
+        setRolesOrdered(rolesOrdered.filter(item => item !== currentModalRole));
         handleCloseModal(true);
     };
 
@@ -155,7 +158,7 @@ const CheckboxBlock = ({
             rolesOrdered[rolesOrdered.indexOf(currentModalRole)] = roleName;
             setRolesOrdered([...rolesOrdered]);
         } else {
-            permissionsTable._roles[roleName] = { permissions: [] };
+            permissionsTable._roles[roleName] = { permissions: [], readonly: false };
             rolesOrdered.push(roleName);
             setRolesOrdered([...rolesOrdered]);
         }
@@ -243,34 +246,36 @@ const CheckboxBlock = ({
             <StyledTable>
                 <StyledTHead>
                     <TableRow>
-                        {rolesOrdered.map((row) => (
+                        {rolesOrdered.map(row => (
                             <StyledCell key={row}>
                                 <Components.RoleTag>{row}</Components.RoleTag>
-                                <RoleActions>
-                                    <Icons.EditIcon
-                                        fontSize="small"
-                                        onClick={() => {
-                                            handleOpenModal(row, false, true);
-                                        }}
-                                    />
-                                    <Icons.DeleteIcon
-                                        fontSize="small"
-                                        color="error"
-                                        onClick={() => {
-                                            handleOpenModal(row, true);
-                                        }}
-                                    />
-                                </RoleActions>
+                                {isReadOnly(row) ? null : (
+                                    <RoleActions>
+                                        <Icons.EditIcon
+                                            fontSize="small"
+                                            onClick={() => {
+                                                handleOpenModal(row, false, true);
+                                            }}
+                                        />
+                                        <Icons.DeleteIcon
+                                            fontSize="small"
+                                            color="error"
+                                            onClick={() => {
+                                                handleOpenModal(row, true);
+                                            }}
+                                        />
+                                    </RoleActions>
+                                )}
                             </StyledCell>
                         ))}
                         <TableCell>&nbsp;</TableCell>
                     </TableRow>
                 </StyledTHead>
                 <TableBody>
-                    {displayedRows.map((perm) => {
+                    {displayedRows.map(perm => {
                         return (
                             <StyledRow key={perm}>
-                                {rolesOrdered.map((role) => {
+                                {rolesOrdered.map(role => {
                                     const itemChecked = isChecked(role, perm);
                                     const itemCheckedByParent = isCheckedByParent(role, perm);
                                     return (
