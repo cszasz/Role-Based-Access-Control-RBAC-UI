@@ -30,6 +30,7 @@ interface CheckboxBlockProps {
     buttons: ButtonsInterfaceInternal;
     icons: IconsInterfaceInternal;
     components: ComponentsInterfaceInternal;
+    admin: boolean
 }
 
 const CheckboxBlock = ({
@@ -62,7 +63,7 @@ const CheckboxBlock = ({
 
     const generatedDisplayedRowsList = (data: ResourcesItem): string[] => {
         let ret: string[] = [];
-        Object.keys(data._resources).forEach((item) => {
+        Object.keys(data._resources).forEach(item => {
             ret.push(item);
             if (expandedItems.indexOf(item) > -1) {
                 ret = ret.concat(generatedDisplayedRowsList(data._resources[item]));
@@ -78,7 +79,7 @@ const CheckboxBlock = ({
 
     const isCheckedByParent = (role: string, perm: string): boolean => {
         let found = false;
-        nodesWithChildren.every((item) => {
+        nodesWithChildren.every(item => {
             if (perm.startsWith(`${item}.`) && permissionsTable._roles[role]['permissions']?.includes(item)) {
                 found = true;
                 return false;

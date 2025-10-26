@@ -52,6 +52,7 @@ interface RbacProps {
     buttons?: ButtonsInterface;
     icons?: IconsInterface;
     components?: ComponentsInterface;
+    admin: boolean;
 }
 
 const Rbac = ({
@@ -61,6 +62,7 @@ const Rbac = ({
     buttons = {},
     icons = {},
     components = {},
+    admin,
 }: RbacProps) => {
     const [permissionsTable, setPermissionsTable] = React.useState<PermissionsObject>(defaultValue);
     const [expandedItems, setExpandedItems] = React.useState<string[]>([]);
@@ -172,6 +174,7 @@ const Rbac = ({
                         buttons={memoizedButtons}
                         icons={memoizedIcons}
                         components={memoizedComponents}
+                        admin={admin}
                     />
                     <CheckboxBlock
                         permissionsTable={permissionsTable}
@@ -181,6 +184,7 @@ const Rbac = ({
                         buttons={memoizedButtons}
                         icons={memoizedIcons}
                         components={memoizedComponents}
+                        admin={admin}
                     />
                 </StyledContainer>
             )}

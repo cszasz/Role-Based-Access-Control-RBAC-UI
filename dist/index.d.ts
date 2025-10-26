@@ -32,6 +32,7 @@ interface RbacProps {
     buttons?: ButtonsInterface;
     icons?: IconsInterface;
     components?: ComponentsInterface;
+    admin: boolean;
 }
-declare const Rbac: ({ defaultValue, onChange, resourceForbiddenCharsRegex, buttons, icons, components, }: RbacProps) => React.JSX.Element;
+declare const Rbac: ({ defaultValue, onChange, resourceForbiddenCharsRegex, buttons, icons, components, admin, }: RbacProps) => React.JSX.Element;
 export default Rbac;

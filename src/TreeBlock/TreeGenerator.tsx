@@ -8,9 +8,10 @@ interface TreeGeneratorProps {
     resources: ResourcesItem['_resources'];
     handleOpenModal: FnTreeBlockHandleOpenModal;
     icons: IconsInterfaceInternal;
+    admin: boolean;
 }
 
-const TreeGenerator = ({ resources, handleOpenModal, icons: Icons }: TreeGeneratorProps) => {
+const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin }: TreeGeneratorProps) => {
     const items = resources || {};
 
     const handleAdd = (e: React.MouseEvent, resource: string) => {
@@ -45,27 +46,29 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons }: TreeGenerat
                                 )}
                                 <ItemResourceName $hasChildren={hasChildren}>{items[resource].name}</ItemResourceName>
                                 <ItemResource>{items[resource].description || resource}</ItemResource>
-                                <ActionsContainer>
-                                    <Icons.TreeAddIcon
-                                        style={{ fontSize: '16px' }}
-                                        onClick={(e: React.MouseEvent) => {
-                                            handleAdd(e, resource);
-                                        }}
-                                    />
-                                    <Icons.TreeEditIcon
-                                        style={{ fontSize: '16px' }}
-                                        onClick={(e: React.MouseEvent) => {
-                                            handleEdit(e, resource);
-                                        }}
-                                    />
-                                    <Icons.TreeDeleteIcon
-                                        style={{ fontSize: '16px' }}
-                                        color="error"
-                                        onClick={(e: React.MouseEvent) => {
-                                            handleDelete(e, resource);
-                                        }}
-                                    />
-                                </ActionsContainer>
+                                {admin && (
+                                    <ActionsContainer>
+                                        <Icons.TreeAddIcon
+                                            style={{ fontSize: '16px' }}
+                                            onClick={(e: React.MouseEvent) => {
+                                                handleAdd(e, resource);
+                                            }}
+                                        />
+                                        <Icons.TreeEditIcon
+                                            style={{ fontSize: '16px' }}
+                                            onClick={(e: React.MouseEvent) => {
+                                                handleEdit(e, resource);
+                                            }}
+                                        />
+                                        <Icons.TreeDeleteIcon
+                                            style={{ fontSize: '16px' }}
+                                            color="error"
+                                            onClick={(e: React.MouseEvent) => {
+                                                handleDelete(e, resource);
+                                            }}
+                                        />
+                                    </ActionsContainer>
+                                )}
                             </TreeItemContent>
                         }
                     >
@@ -74,6 +77,7 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons }: TreeGenerat
                                 resources={items[resource]._resources}
                                 handleOpenModal={handleOpenModal}
                                 icons={Icons}
+                                admin={admin}
                             />
                         )}
                     </StyledTreeItem>

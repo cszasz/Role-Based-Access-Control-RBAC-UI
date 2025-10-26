@@ -65,7 +65,8 @@ var _templateObject, _templateObject2, _templateObject3, _templateObject4, _temp
 var _TreeGenerator = function TreeGenerator(_ref) {
   var resources = _ref.resources,
     handleOpenModal = _ref.handleOpenModal,
-    Icons = _ref.icons;
+    Icons = _ref.icons,
+    admin = _ref.admin;
   var items = resources || {};
   var handleAdd = function handleAdd(e, resource) {
     e.stopPropagation();
@@ -95,7 +96,7 @@ var _TreeGenerator = function TreeGenerator(_ref) {
         }
       }), React__default.createElement(ItemResourceName, {
         "$hasChildren": hasChildren
-      }, items[resource].name), React__default.createElement(ItemResource, null, items[resource].description || resource), React__default.createElement(ActionsContainer, null, React__default.createElement(Icons.TreeAddIcon, {
+      }, items[resource].name), React__default.createElement(ItemResource, null, items[resource].description || resource), admin && React__default.createElement(ActionsContainer, null, React__default.createElement(Icons.TreeAddIcon, {
         style: {
           fontSize: '16px'
         },
@@ -121,7 +122,8 @@ var _TreeGenerator = function TreeGenerator(_ref) {
     }, Object.keys(items[resource]._resources).length > 0 && React__default.createElement(_TreeGenerator, {
       resources: items[resource]._resources,
       handleOpenModal: handleOpenModal,
-      icons: Icons
+      icons: Icons,
+      admin: admin
     }));
   }));
 };
@@ -154,7 +156,8 @@ var TreeBlock = function TreeBlock(_ref) {
     resourceForbiddenCharsRegex = _ref.resourceForbiddenCharsRegex,
     Buttons = _ref.buttons,
     Icons = _ref.icons,
-    Components = _ref.components;
+    Components = _ref.components,
+    admin = _ref.admin;
   var _React$useState = React__default.useState(false),
     modalIsOpen = _React$useState[0],
     setModalIsOpen = _React$useState[1];
@@ -318,7 +321,8 @@ var TreeBlock = function TreeBlock(_ref) {
   }, React__default.createElement(_TreeGenerator, {
     resources: (_resources = {}, _resources[currentModalResourceKey] = currentModalResourceRef, _resources),
     handleOpenModal: handleOpenModal,
-    icons: Icons
+    icons: Icons,
+    admin: admin
   }))), React__default.createElement(DialogActions, null, React__default.createElement(Buttons.CloseButton, {
     variant: "outlined",
     onClick: function onClick() {
@@ -337,8 +341,9 @@ var TreeBlock = function TreeBlock(_ref) {
   }, React__default.createElement(_TreeGenerator, {
     resources: resources._resources,
     handleOpenModal: handleOpenModal,
-    icons: Icons
-  })), React__default.createElement(AddResourceBlock, {
+    icons: Icons,
+    admin: admin
+  })), admin && React__default.createElement(AddResourceBlock, {
     onClick: function onClick() {
       handleOpenModal(resources);
     }
@@ -653,7 +658,8 @@ var Rbac = function Rbac(_ref) {
     _ref$icons = _ref.icons,
     icons = _ref$icons === void 0 ? {} : _ref$icons,
     _ref$components = _ref.components,
-    components = _ref$components === void 0 ? {} : _ref$components;
+    components = _ref$components === void 0 ? {} : _ref$components,
+    admin = _ref.admin;
   var _React$useState = React__default.useState(defaultValue),
     permissionsTable = _React$useState[0],
     setPermissionsTable = _React$useState[1];
@@ -752,7 +758,8 @@ var Rbac = function Rbac(_ref) {
     resourceForbiddenCharsRegex: resourceForbiddenCharsRegex,
     buttons: memoizedButtons,
     icons: memoizedIcons,
-    components: memoizedComponents
+    components: memoizedComponents,
+    admin: admin
   }), React__default.createElement(CheckboxBlock, {
     permissionsTable: permissionsTable,
     expandedItems: expandedItems,
@@ -760,7 +767,8 @@ var Rbac = function Rbac(_ref) {
     onChange: handleCheckboxChanges,
     buttons: memoizedButtons,
     icons: memoizedIcons,
-    components: memoizedComponents
+    components: memoizedComponents,
+    admin: admin
   })));
 };
 var StyledContainer = /*#__PURE__*/styled.div(_templateObject$7 || (_templateObject$7 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;\n    width: 100%;\n    display: flex;\n    > div {\n        width: 100%;\n        flex-grow: 1;\n    }\n"])));

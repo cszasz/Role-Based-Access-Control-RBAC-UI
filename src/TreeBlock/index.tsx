@@ -33,6 +33,7 @@ interface TreeBlockProps {
     buttons: ButtonsInterfaceInternal;
     icons: IconsInterfaceInternal;
     components: ComponentsInterfaceInternal;
+    admin: boolean;
 }
 
 const TreeBlock = ({
@@ -44,6 +45,7 @@ const TreeBlock = ({
     buttons: Buttons,
     icons: Icons,
     components: Components,
+    admin,
 }: TreeBlockProps) => {
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
     const [modalDeleteIsOpen, setModalDeleteIsOpen] = React.useState<boolean>(false);
@@ -232,6 +234,7 @@ const TreeBlock = ({
                                 }
                                 handleOpenModal={handleOpenModal}
                                 icons={Icons}
+                                admin={admin}
                             />
                         </TreeView>
                     </DialogContent>
@@ -256,15 +259,22 @@ const TreeBlock = ({
                 disableSelection
                 onNodeToggle={handleExpand}
             >
-                <TreeGenerator resources={resources._resources} handleOpenModal={handleOpenModal} icons={Icons} />
+                <TreeGenerator
+                    resources={resources._resources}
+                    handleOpenModal={handleOpenModal}
+                    icons={Icons}
+                    admin={admin}
+                />
             </StyledTreeView>
-            <AddResourceBlock
-                onClick={() => {
-                    handleOpenModal(resources);
-                }}
-            >
-                <Components.AddResource />
-            </AddResourceBlock>
+            {admin && (
+                <AddResourceBlock
+                    onClick={() => {
+                        handleOpenModal(resources);
+                    }}
+                >
+                    <Components.AddResource />
+                </AddResourceBlock>
+            )}
         </TableContainer>
     );
 };

@@ -8,6 +8,7 @@ interface CheckboxBlockProps {
     buttons: ButtonsInterfaceInternal;
     icons: IconsInterfaceInternal;
     components: ComponentsInterfaceInternal;
+    admin: boolean;
 }
 declare const CheckboxBlock: ({ permissionsTable, onChange, expandedItems, nodesWithChildren, buttons: Buttons, icons: Icons, components: Components, }: CheckboxBlockProps) => React.JSX.Element;
 export default CheckboxBlock;
