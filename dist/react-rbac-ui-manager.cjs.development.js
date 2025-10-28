@@ -634,7 +634,7 @@ var CheckboxBlock = function CheckboxBlock(_ref) {
   }, React__default.createElement(Components.AddRole, null))), React__default.createElement(StyledTable, null, React__default.createElement(StyledTHead, null, React__default.createElement(TableRow, null, rolesOrdered.map(function (row) {
     return React__default.createElement(StyledCell, {
       key: row
-    }, React__default.createElement(Components.RoleTag, null, row), isReadOnly(row) ? null : React__default.createElement(RoleActions, null, React__default.createElement(Icons.EditIcon, {
+    }, React__default.createElement(Components.RoleTag, null, t("admin_local.role." + row, row)), isReadOnly(row) ? null : React__default.createElement(RoleActions, null, React__default.createElement(Icons.EditIcon, {
       fontSize: "small",
       onClick: function onClick() {
         handleOpenModal(row, false, true);
