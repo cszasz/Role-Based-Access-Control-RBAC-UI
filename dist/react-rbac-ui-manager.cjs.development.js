@@ -98,7 +98,7 @@ var _TreeGenerator = function TreeGenerator(_ref) {
         }
       }), React__default.createElement(ItemResourceName, {
         "$hasChildren": hasChildren
-      }, t("admin_local.resource." + items[resource].name, items[resource].name)), displayDescription ? React__default.createElement(ItemResource, null, items[resource].description ? React__default.createElement(React__default.Fragment, null, t("admin_local.resource." + resource + ".description", items[resource].description), admin && React__default.createElement("span", {
+      }, t("admin_local.resource." + resource + ".name", items[resource].name)), displayDescription ? React__default.createElement(ItemResource, null, items[resource].description ? React__default.createElement(React__default.Fragment, null, t("admin_local.resource." + resource + ".description", items[resource].description), admin && React__default.createElement("span", {
         style: {
           color: '#888',
           marginLeft: '10px'
