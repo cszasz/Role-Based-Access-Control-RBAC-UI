@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { I18n } from "../i18n";
 
 const AddResource = () => {
     return (
         <>
-            <AddResourceIcon /> Add Resource
+            <AddResourceIcon /> {I18n.t('admin_local.ui.addResource', 'Add Resource')}
         </>
     );
 };

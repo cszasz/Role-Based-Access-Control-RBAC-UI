@@ -13,6 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
+import { I18n } from '../i18n';
 
 import {
     ButtonsInterfaceInternal,
@@ -148,7 +149,7 @@ const CheckboxBlock = ({
         }
 
         if (roleName in permissionsTable._roles) {
-            setErrorHelperText('Role name already exists');
+            setErrorHelperText(I18n.t('admin_local.error.roleExists', 'Role name already exists'));
             setErrorInRoleName(true);
             return false;
         }
@@ -185,10 +186,10 @@ const CheckboxBlock = ({
                 disableBackdropClick
             >
                 <DialogContainer>
-                    <DialogTitle>Role</DialogTitle>
+                    <DialogTitle>{I18n.t('admin_local.ui.role', 'Role')}</DialogTitle>
                     <DialogContent>
                         <InputRowContainer>
-                            <InputLabel htmlFor="name">Role Name:</InputLabel>
+                            <InputLabel htmlFor="name">{I18n.t('admin_local.ui.roleName', 'Role Name:')}</InputLabel>
                             <TextField
                                 id="name"
                                 type="text"
@@ -208,29 +209,29 @@ const CheckboxBlock = ({
                                 handleCloseModal(false);
                             }}
                         >
-                            Cancel
+                            {I18n.t('admin_local.ui.cancel', 'Cancel')}
                         </Buttons.CancelButton>
                         <Buttons.SaveButton variant="contained" color="primary" onClick={handleRole}>
-                            Save
+                            {I18n.t('admin_local.ui.save', 'Save')}
                         </Buttons.SaveButton>
                     </DialogActions>
                 </DialogContainer>
             </Dialog>
             <Dialog open={modalDeleteIsOpen} onClose={() => handleCloseModal(true)} disableBackdropClick>
                 <DialogContainer>
-                    <DialogTitle>Delete Resources</DialogTitle>
+                    <DialogTitle>{I18n.t('admin_local.ui.deleteResources', 'Delete Resources')}</DialogTitle>
                     <DialogContent>
                         <Typography>
-                            Are you sure you want to delete the role <b>{currentModalRole}</b>?
+                            {I18n.t('admin_local.confirm.deleteRole', 'Are you sure you want to delete the role')} <b>{currentModalRole}</b>?
                         </Typography>
-                        <Typography>This action cannot be undone.</Typography>
+                        <Typography>{I18n.t('admin_local.confirm.undoAction', 'This action cannot be undone.')}</Typography>
                     </DialogContent>
                     <DialogActions>
                         <Buttons.CancelButton variant="outlined" onClick={() => handleCloseModal(true)}>
-                            Cancel
+                            {I18n.t('admin_local.ui.cancel', 'Cancel')}
                         </Buttons.CancelButton>
                         <Buttons.DeleteButton variant="contained" onClick={handleDeleteRole}>
-                            Delete
+                            {I18n.t('admin_local.ui.delete', 'Delete')}
                         </Buttons.DeleteButton>
                     </DialogActions>
                 </DialogContainer>

@@ -16,6 +16,7 @@ import RoleTag from './Components/RoleTag';
 import CheckboxTableContainer from './Components/CheckboxTableContainer';
 import CheckboxBlock from './CheckboxBlock';
 import { PermissionsObject, ResourcesItem } from './types';
+import { I18n } from './i18n';
 
 const EMPTY_RBAC_OBJECT = { _resources: {}, _roles: {} };
 
@@ -193,6 +194,7 @@ const Rbac = ({
 };
 
 export default Rbac;
+export { I18n };
 
 const StyledContainer = styled.div`
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;

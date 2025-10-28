@@ -1,11 +1,12 @@
 import React from "react";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import styled from "styled-components";
+import { I18n } from "../i18n";
 
 const AddRole = () => {
     return (
         <>
-            Add Role <AddRoleIcon fontSize='small' />
+            {I18n.t('admin_local.ui.addRole', 'Add Role')} <AddRoleIcon fontSize='small' />
         </>
     );
 };

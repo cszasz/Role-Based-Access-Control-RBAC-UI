@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TreeItem from '@material-ui/lab/TreeItem';
 import { withTheme } from '@material-ui/core';
 import { FnTreeBlockHandleOpenModal, IconsInterfaceInternal, ResourcesItem } from '../types';
+import { I18n } from '../i18n';
 
 interface TreeGeneratorProps {
     resources: ResourcesItem['_resources'];
@@ -45,12 +46,14 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin, displa
                                 ) : (
                                     <Icons.TreeNodeIcon color="primary" style={{ fontSize: '11px' }} />
                                 )}
-                                <ItemResourceName $hasChildren={hasChildren}>{items[resource].name}</ItemResourceName>
+                                <ItemResourceName $hasChildren={hasChildren}>
+                                    {I18n.t(`admin_local.resource.${resource}.name`, items[resource].name)}
+                                </ItemResourceName>
                                 {displayDescription ? (
                                     <ItemResource>
                                         {items[resource].description ? (
                                             <>
-                                                {items[resource].description}
+                                                {I18n.t(`admin_local.resource.${resource}.description`, items[resource].description)}
                                                 {admin && (
                                                     <span style={{ color: '#888', marginLeft: '10px' }}>
                                                         ({resource})

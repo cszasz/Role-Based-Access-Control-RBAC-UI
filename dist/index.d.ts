@@ -1,5 +1,6 @@
 import React, { ComponentType } from 'react';
 import { PermissionsObject } from './types';
+import { I18n } from './i18n';
 export interface ButtonsInterface {
     cancelButton?: ComponentType;
     closeButton?: ComponentType;
@@ -36,3 +37,4 @@ interface RbacProps {
 }
 declare const Rbac: ({ defaultValue, onChange, resourceForbiddenCharsRegex, buttons, icons, components, admin, }: RbacProps) => React.JSX.Element;
 export default Rbac;
+export { I18n };
