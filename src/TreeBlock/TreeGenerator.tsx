@@ -150,10 +150,11 @@ const ItemResourceName = styled.span<{ $hasChildren: boolean }>`
 `;
 
 export const ItemResource = withTheme(styled.span`
-    position: absolute;
-    left: max(15%, 250px);
-    color: ${(props: any) => props.theme.palette.text.disabled};
-`);
+           position: absolute;
+           left: max(15%, 250px);
+           color: ${(props: any) => props.theme.palette.text.disabled};
+           font-size: 14px;
+       `);
 
 export const TreeItemContent = withTheme(styled.div`
     display: flex;

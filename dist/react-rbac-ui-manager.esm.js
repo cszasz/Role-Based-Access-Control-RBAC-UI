@@ -139,7 +139,7 @@ var ItemResourceName = /*#__PURE__*/styled.span(_templateObject4 || (_templateOb
   var $hasChildren = _ref3.$hasChildren;
   return $hasChildren ? '16px' : '14px';
 });
-var ItemResource = /*#__PURE__*/withTheme(/*#__PURE__*/styled.span(_templateObject5 || (_templateObject5 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    position: absolute;\n    left: max(15%, 250px);\n    color: ", ";\n"])), function (props) {
+var ItemResource = /*#__PURE__*/withTheme(/*#__PURE__*/styled.span(_templateObject5 || (_templateObject5 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n           position: absolute;\n           left: max(15%, 250px);\n           color: ", ";\n           font-size: 14px;\n       "])), function (props) {
   return props.theme.palette.text.disabled;
 }));
 var TreeItemContent = /*#__PURE__*/withTheme(/*#__PURE__*/styled.div(_templateObject6 || (_templateObject6 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    display: flex;\n    line-height: 31px;\n    border-width: 0 0 1px 0;\n    border-style: solid;\n    border-color: ", ";\n    align-items: center;\n\n    &:hover ", " {\n        display: block;\n    }\n"])), function (props) {
@@ -396,7 +396,11 @@ var AddResource = function AddResource(_ref) {
   var translate = t || function (key, fallback) {
     return fallback || key;
   };
-  return React.createElement(React.Fragment, null, React.createElement(AddResourceIcon, null), " ", translate('admin_local.ui.addResource', 'Add Resource'));
+  return React.createElement("div", {
+    style: {
+      fontSize: '16px'
+    }
+  }, React.createElement(AddResourceIcon, null), " ", translate('admin_local.ui.addResource', 'Add Resource'));
 };
 var AddResourceIcon = /*#__PURE__*/styled(AddCircleOutlineIcon)(_templateObject$2 || (_templateObject$2 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    vertical-align: -6px;\n"])));
 
@@ -406,7 +410,11 @@ var AddRole = function AddRole(_ref) {
   var translate = t || function (key, fallback) {
     return fallback || key;
   };
-  return React.createElement(React.Fragment, null, translate('admin_local.ui.addRole', 'Add Role'), " ", React.createElement(AddRoleIcon, {
+  return React.createElement("div", {
+    style: {
+      fontSize: '16px'
+    }
+  }, translate('admin_local.ui.addRole', 'Add Role'), " ", React.createElement(AddRoleIcon, {
     fontSize: "small"
   }));
 };

@@ -9,9 +9,9 @@ interface AddResourceProps {
 const AddResource = ({ t }: AddResourceProps) => {
     const translate = t || ((key: string, fallback?: string) => fallback || key);
     return (
-        <>
+        <div style={{ fontSize: '16px' }}>
             <AddResourceIcon /> {translate('admin_local.ui.addResource', 'Add Resource')}
-        </>
+        </div>
     );
 };
 

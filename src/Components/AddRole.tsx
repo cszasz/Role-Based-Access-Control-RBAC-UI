@@ -9,9 +9,9 @@ interface AddRoleProps {
 const AddRole = ({ t }: AddRoleProps) => {
     const translate = t || ((key: string, fallback?: string) => fallback || key);
     return (
-        <>
+        <div style={{ fontSize: '16px' }}>
             {translate('admin_local.ui.addRole', 'Add Role')} <AddRoleIcon fontSize="small" />
-        </>
+        </div>
     );
 };
 
