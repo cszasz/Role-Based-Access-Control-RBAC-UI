@@ -94,6 +94,7 @@ The Rbac component accepts the following props (none of which is required):
 |**`buttons`**|object|Object contains buttons to be used as replacement for the default buttons (see below)
 |**`icons`**|object|Object contains icons to be used as replacement for the default icons (see below)
 |**`components`**|object|Object contains components to be used as replacement for the default components (see below)
+|**`translations`**|object|Object contains translation key-value pairs for internationalization (see below)
 
 **The Buttons object:**
 |Name|Type|Description
@@ -123,6 +124,74 @@ The Rbac component accepts the following props (none of which is required):
 |**`addRole`**|node|The component to use for the Add Role block
 |**`checkboxTableContainer`**|node|The component to use for the container of the checkbox table
 |**`roleTag`**|node|The component to use for the role name tag
+
+**The Translations object:**
+|Name|Type|Description
+|:--|:-----|:-----|
+|**`translations`**|object|Object with translation key-value pairs. All keys should be prefixed with `admin_local.`. Example: `{ 'admin_local.ui.save': 'Guardar' }`
+
+## Internationalization (i18n)
+
+The component supports internationalization through the `translations` prop. All translation keys are prefixed with `admin_local.`.
+
+### Available Translation Keys:
+
+```typescript
+// UI Labels
+'admin_local.ui.resource': 'Resource',
+'admin_local.ui.description': 'Description',
+'admin_local.ui.permission': 'Permission',
+'admin_local.ui.newResource': 'New Resource',
+'admin_local.ui.deleteResources': 'Delete Resources',
+'admin_local.ui.resourceName': 'Resource Name:',
+'admin_local.ui.descriptionLabel': 'Description:',
+'admin_local.ui.permissionName': 'Permission name:',
+'admin_local.ui.close': 'Close',
+'admin_local.ui.save': 'Save',
+'admin_local.ui.delete': 'Delete',
+'admin_local.ui.cancel': 'Cancel',
+'admin_local.ui.addResource': 'Add Resource',
+'admin_local.ui.addRole': 'Add Role',
+'admin_local.ui.role': 'Role',
+'admin_local.ui.roleName': 'Role Name:',
+
+// Error messages
+'admin_local.error.permissionExists': 'Permission name already exists',
+'admin_local.error.roleExists': 'Role name already exists',
+
+// Confirmation messages
+'admin_local.confirm.deleteResources': 'Are you sure you want to delete the following resources:',
+'admin_local.confirm.deleteRole': 'Are you sure you want to delete the role',
+'admin_local.confirm.undoAction': 'This action cannot be undone.',
+
+// Resource-specific (dynamic)
+'admin_local.resource.{resourceKey}.name': 'Resource display name',
+'admin_local.resource.{resourceKey}.description': 'Resource description'
+```
+
+### Example with Hungarian translations:
+
+```typescript jsx
+import Rbac from "@build-security/react-rbac-ui-manager";
+
+const hungarianTranslations = {
+  'admin_local.ui.resource': 'Erőforrás',
+  'admin_local.ui.description': 'Leírás',
+  'admin_local.ui.save': 'Mentés',
+  'admin_local.ui.delete': 'Törlés',
+  'admin_local.ui.cancel': 'Mégse',
+  // ... more translations
+};
+
+const handleChange = (value) => {
+    console.log(value)
+};
+
+<Rbac
+    onChange={handleChange}
+    translations={hungarianTranslations}
+/>
+```
 
 ## License
 

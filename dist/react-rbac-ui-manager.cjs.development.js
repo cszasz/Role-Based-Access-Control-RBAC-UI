@@ -731,7 +731,8 @@ var Rbac = function Rbac(_ref) {
     icons = _ref$icons === void 0 ? {} : _ref$icons,
     _ref$components = _ref.components,
     components = _ref$components === void 0 ? {} : _ref$components,
-    admin = _ref.admin;
+    admin = _ref.admin,
+    translations = _ref.translations;
   var _React$useState = React__default.useState(defaultValue),
     permissionsTable = _React$useState[0],
     setPermissionsTable = _React$useState[1];
@@ -741,6 +742,12 @@ var Rbac = function Rbac(_ref) {
   var _React$useState3 = React__default.useState([]),
     nodesWithChildren = _React$useState3[0],
     setNodesWithChildren = _React$useState3[1];
+  // Set translations when component mounts or translations change
+  React__default.useEffect(function () {
+    if (translations) {
+      I18n.setTranslations(translations);
+    }
+  }, [translations]);
   React.useEffect(function () {
     setExpandedItems(getAllResources(permissionsTable));
   }, []);

@@ -9,6 +9,7 @@ import ArrowRight from '@material-ui/icons/ArrowRight';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import MenuIcon from '@material-ui/icons/Menu';
 import { getAllResources } from './utils';
+import { I18n } from './i18n';
 import TreeBlock from './TreeBlock';
 import AddResource from './Components/AddResource';
 import AddRole from './Components/AddRole';
@@ -16,7 +17,6 @@ import RoleTag from './Components/RoleTag';
 import CheckboxTableContainer from './Components/CheckboxTableContainer';
 import CheckboxBlock from './CheckboxBlock';
 import { PermissionsObject, ResourcesItem } from './types';
-import { I18n } from './i18n';
 
 const EMPTY_RBAC_OBJECT = { _resources: {}, _roles: {} };
 
@@ -54,6 +54,7 @@ interface RbacProps {
     icons?: IconsInterface;
     components?: ComponentsInterface;
     admin: boolean;
+    translations?: { [key: string]: string };
 }
 
 const Rbac = ({
@@ -64,10 +65,18 @@ const Rbac = ({
     icons = {},
     components = {},
     admin,
+    translations,
 }: RbacProps) => {
     const [permissionsTable, setPermissionsTable] = React.useState<PermissionsObject>(defaultValue);
     const [expandedItems, setExpandedItems] = React.useState<string[]>([]);
     const [nodesWithChildren, setNodesWithChildren] = React.useState([]);
+
+    // Set translations when component mounts or translations change
+    React.useEffect(() => {
+        if (translations) {
+            I18n.setTranslations(translations);
+        }
+    }, [translations]);
 
     useEffect(() => {
         setExpandedItems(getAllResources(permissionsTable));
