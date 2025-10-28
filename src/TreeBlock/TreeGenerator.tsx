@@ -77,7 +77,7 @@ const TreeGenerator = ({
                                         )}
                                     </ItemResource>
                                 ) : (
-                                    <ItemResource>{resource}</ItemResource>
+                                    <ItemResource>{admin ? resource : ''}</ItemResource>
                                 )}
                                 {admin && (
                                     <ActionsContainer>

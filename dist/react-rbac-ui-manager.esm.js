@@ -96,7 +96,7 @@ var _TreeGenerator = function TreeGenerator(_ref) {
           color: '#888',
           marginLeft: '10px'
         }
-      }, "(", resource, ")")) : admin ? resource : '') : React.createElement(ItemResource, null, resource), admin && React.createElement(ActionsContainer, null, React.createElement(Icons.TreeAddIcon, {
+      }, "(", resource, ")")) : admin ? resource : '') : React.createElement(ItemResource, null, admin ? resource : ''), admin && React.createElement(ActionsContainer, null, React.createElement(Icons.TreeAddIcon, {
         style: {
           fontSize: '16px'
         },
