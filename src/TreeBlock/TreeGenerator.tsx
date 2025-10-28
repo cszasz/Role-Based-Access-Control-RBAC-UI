@@ -47,7 +47,14 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin, displa
                                 )}
                                 <ItemResourceName $hasChildren={hasChildren}>{items[resource].name}</ItemResourceName>
                                 {displayDescription ? (
-                                    <ItemResource>{items[resource].description || ''}</ItemResource>
+                                    <ItemResource>
+                                        {items[resource].description || ''}
+                                        {admin && items[resource].description && (
+                                            <span style={{ color: '#888', marginLeft: '10px' }}>
+                                                ({resource})
+                                            </span>
+                                        )}
+                                    </ItemResource>
                                 ) : (
                                     <ItemResource>{resource}</ItemResource>
                                 )}

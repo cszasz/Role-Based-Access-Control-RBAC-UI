@@ -97,7 +97,12 @@ var _TreeGenerator = function TreeGenerator(_ref) {
         }
       }), React__default.createElement(ItemResourceName, {
         "$hasChildren": hasChildren
-      }, items[resource].name), displayDescription ? React__default.createElement(ItemResource, null, items[resource].description || '') : React__default.createElement(ItemResource, null, resource), admin && React__default.createElement(ActionsContainer, null, React__default.createElement(Icons.TreeAddIcon, {
+      }, items[resource].name), displayDescription ? React__default.createElement(ItemResource, null, items[resource].description || '', admin && items[resource].description && React__default.createElement("span", {
+        style: {
+          color: '#888',
+          marginLeft: '10px'
+        }
+      }, "(", resource, ")")) : React__default.createElement(ItemResource, null, resource), admin && React__default.createElement(ActionsContainer, null, React__default.createElement(Icons.TreeAddIcon, {
         style: {
           fontSize: '16px'
         },
@@ -346,7 +351,7 @@ var TreeBlock = function TreeBlock(_ref) {
     variant: "contained",
     color: "secondary",
     onClick: handleDeleteResources
-  }, "Delete")))), React__default.createElement(TreeHeaderContainer, null, React__default.createElement(ResourceTitle, null, "Resource"), React__default.createElement(PermissionTitle, null, "Description")), React__default.createElement(StyledTreeView, {
+  }, "Delete")))), React__default.createElement(TreeHeaderContainer, null, React__default.createElement(ResourceTitle, null, "Resource"), React__default.createElement(PermissionTitle, null, admin ? 'Description (Permission)' : 'Description')), React__default.createElement(StyledTreeView, {
     defaultCollapseIcon: React__default.createElement(Icons.TreeCollapseIcon, null),
     defaultExpandIcon: React__default.createElement(Icons.TreeExpandIcon, null),
     expanded: expandedItems,

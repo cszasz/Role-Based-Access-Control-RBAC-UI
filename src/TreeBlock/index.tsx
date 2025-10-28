@@ -268,7 +268,7 @@ const TreeBlock = ({
             </Dialog>
             <TreeHeaderContainer>
                 <ResourceTitle>Resource</ResourceTitle>
-                <PermissionTitle>Description</PermissionTitle>
+                <PermissionTitle>{admin ? 'Description (Permission)' : 'Description'}</PermissionTitle>
             </TreeHeaderContainer>
             <StyledTreeView
                 defaultCollapseIcon={<Icons.TreeCollapseIcon />}
