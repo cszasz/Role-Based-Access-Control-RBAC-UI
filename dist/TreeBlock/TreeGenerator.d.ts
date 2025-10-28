@@ -5,8 +5,9 @@ interface TreeGeneratorProps {
     handleOpenModal: FnTreeBlockHandleOpenModal;
     icons: IconsInterfaceInternal;
     admin: boolean;
+    displayDescription?: boolean;
 }
-declare const TreeGenerator: ({ resources, handleOpenModal, icons: Icons, admin }: TreeGeneratorProps) => React.JSX.Element;
+declare const TreeGenerator: ({ resources, handleOpenModal, icons: Icons, admin, displayDescription }: TreeGeneratorProps) => React.JSX.Element;
 export default TreeGenerator;
 export declare const ActionsContainer: import("styled-components").StyledComponent<"span", any, {}, never>;
 export declare const ItemResource: React.ComponentType<Pick<{

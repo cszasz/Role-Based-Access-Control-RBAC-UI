@@ -63,8 +63,10 @@ const TreeBlock = ({
     const nameEl = React.useRef<HTMLInputElement>(null);
     const permissionEl = React.useRef<HTMLInputElement>(null);
 
+    const descriptionEl = React.useRef<HTMLInputElement>(null);
     const handleResource = () => {
         const name = nameEl?.current?.value;
+        const description = descriptionEl?.current?.value;
         const permission = `${currentModalResourceKey ? `${currentModalResourceKey}.` : ''}${
             permissionEl?.current?.value
         }`;
@@ -77,13 +79,16 @@ const TreeBlock = ({
         }
 
         if (modalInEditMode && currentModalResourceRef) {
-            // @ts-ignore
-            currentModalResourceRef.name = name;
-        } else {
+                                                            // @ts-ignore
+                                                            currentModalResourceRef.name = name;
+                                                            // @ts-ignore
+                                                            currentModalResourceRef.description = description;
+                                                        } else {
             if (parent) {
                 // @ts-ignore
                 parent._resources[permission] = {
                     name: name as string,
+                    description: description as string,
                     _resources: {},
                 };
             }
@@ -176,6 +181,19 @@ const TreeBlock = ({
                             />
                         </InputRowContainer>
                         <InputRowContainer>
+                            <InputLabel htmlFor="description">Description:</InputLabel>
+                            <PermissionStyledInput
+                                id="description"
+                                type="text"
+                                inputRef={descriptionEl}
+                                defaultValue={
+                                    modalInEditMode
+                                        ? (currentModalResourceRef as ResourcesItem['_resources']).description
+                                        : undefined
+                                }
+                            />
+                        </InputRowContainer>
+                        <InputRowContainer>
                             <InputLabel htmlFor="permission">Permission name:</InputLabel>
                             <PermissionStyledInput
                                 id="permission"
@@ -250,7 +268,7 @@ const TreeBlock = ({
             </Dialog>
             <TreeHeaderContainer>
                 <ResourceTitle>Resource</ResourceTitle>
-                <PermissionTitle>Permission</PermissionTitle>
+                <PermissionTitle>Description</PermissionTitle>
             </TreeHeaderContainer>
             <StyledTreeView
                 defaultCollapseIcon={<Icons.TreeCollapseIcon />}
@@ -264,6 +282,7 @@ const TreeBlock = ({
                     handleOpenModal={handleOpenModal}
                     icons={Icons}
                     admin={admin}
+                    displayDescription
                 />
             </StyledTreeView>
             {admin && (

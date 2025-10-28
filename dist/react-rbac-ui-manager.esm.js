@@ -59,7 +59,8 @@ var _TreeGenerator = function TreeGenerator(_ref) {
   var resources = _ref.resources,
     handleOpenModal = _ref.handleOpenModal,
     Icons = _ref.icons,
-    admin = _ref.admin;
+    admin = _ref.admin,
+    displayDescription = _ref.displayDescription;
   var items = resources || {};
   var handleAdd = function handleAdd(e, resource) {
     e.stopPropagation();
@@ -89,7 +90,7 @@ var _TreeGenerator = function TreeGenerator(_ref) {
         }
       }), React.createElement(ItemResourceName, {
         "$hasChildren": hasChildren
-      }, items[resource].name), React.createElement(ItemResource, null, items[resource].description || resource), admin && React.createElement(ActionsContainer, null, React.createElement(Icons.TreeAddIcon, {
+      }, items[resource].name), displayDescription ? React.createElement(ItemResource, null, items[resource].description || '') : React.createElement(ItemResource, null, resource), admin && React.createElement(ActionsContainer, null, React.createElement(Icons.TreeAddIcon, {
         style: {
           fontSize: '16px'
         },
@@ -116,7 +117,8 @@ var _TreeGenerator = function TreeGenerator(_ref) {
       resources: items[resource]._resources,
       handleOpenModal: handleOpenModal,
       icons: Icons,
-      admin: admin
+      admin: admin,
+      displayDescription: displayDescription
     }));
   }));
 };
@@ -180,9 +182,11 @@ var TreeBlock = function TreeBlock(_ref) {
     setErrorHelperText = _React$useState9[1];
   var nameEl = React.useRef(null);
   var permissionEl = React.useRef(null);
+  var descriptionEl = React.useRef(null);
   var handleResource = function handleResource() {
-    var _nameEl$current, _permissionEl$current;
+    var _nameEl$current, _descriptionEl$curren, _permissionEl$current;
     var name = nameEl == null || (_nameEl$current = nameEl.current) == null ? void 0 : _nameEl$current.value;
+    var description = descriptionEl == null || (_descriptionEl$curren = descriptionEl.current) == null ? void 0 : _descriptionEl$curren.value;
     var permission = "" + (currentModalResourceKey ? currentModalResourceKey + "." : '') + (permissionEl == null || (_permissionEl$current = permissionEl.current) == null ? void 0 : _permissionEl$current.value);
     var parent = currentModalResourceRef;
     if (parent && permission in parent._resources) {
@@ -193,11 +197,14 @@ var TreeBlock = function TreeBlock(_ref) {
     if (modalInEditMode && currentModalResourceRef) {
       // @ts-ignore
       currentModalResourceRef.name = name;
+      // @ts-ignore
+      currentModalResourceRef.description = description;
     } else {
       if (parent) {
         // @ts-ignore
         parent._resources[permission] = {
           name: name,
+          description: description,
           _resources: {}
         };
       }
@@ -272,6 +279,13 @@ var TreeBlock = function TreeBlock(_ref) {
     defaultValue: modalInEditMode ? currentModalResourceRef.name : undefined,
     autoFocus: true
   })), React.createElement(InputRowContainer, null, React.createElement(InputLabel, {
+    htmlFor: "description"
+  }, "Description:"), React.createElement(PermissionStyledInput, {
+    id: "description",
+    type: "text",
+    inputRef: descriptionEl,
+    defaultValue: modalInEditMode ? currentModalResourceRef.description : undefined
+  })), React.createElement(InputRowContainer, null, React.createElement(InputLabel, {
     htmlFor: "permission"
   }, "Permission name:"), React.createElement(PermissionStyledInput, {
     id: "permission",
@@ -325,7 +339,7 @@ var TreeBlock = function TreeBlock(_ref) {
     variant: "contained",
     color: "secondary",
     onClick: handleDeleteResources
-  }, "Delete")))), React.createElement(TreeHeaderContainer, null, React.createElement(ResourceTitle, null, "Resource"), React.createElement(PermissionTitle, null, "Permission")), React.createElement(StyledTreeView, {
+  }, "Delete")))), React.createElement(TreeHeaderContainer, null, React.createElement(ResourceTitle, null, "Resource"), React.createElement(PermissionTitle, null, "Description")), React.createElement(StyledTreeView, {
     defaultCollapseIcon: React.createElement(Icons.TreeCollapseIcon, null),
     defaultExpandIcon: React.createElement(Icons.TreeExpandIcon, null),
     expanded: expandedItems,
@@ -335,7 +349,8 @@ var TreeBlock = function TreeBlock(_ref) {
     resources: resources._resources,
     handleOpenModal: handleOpenModal,
     icons: Icons,
-    admin: admin
+    admin: admin,
+    displayDescription: true
   })), admin && React.createElement(AddResourceBlock, {
     onClick: function onClick() {
       handleOpenModal(resources);

@@ -9,9 +9,10 @@ interface TreeGeneratorProps {
     handleOpenModal: FnTreeBlockHandleOpenModal;
     icons: IconsInterfaceInternal;
     admin: boolean;
+    displayDescription?: boolean;
 }
 
-const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin }: TreeGeneratorProps) => {
+const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin, displayDescription }: TreeGeneratorProps) => {
     const items = resources || {};
 
     const handleAdd = (e: React.MouseEvent, resource: string) => {
@@ -45,7 +46,11 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin }: Tree
                                     <Icons.TreeNodeIcon color="primary" style={{ fontSize: '11px' }} />
                                 )}
                                 <ItemResourceName $hasChildren={hasChildren}>{items[resource].name}</ItemResourceName>
-                                <ItemResource>{items[resource].description || resource}</ItemResource>
+                                {displayDescription ? (
+                                    <ItemResource>{items[resource].description || ''}</ItemResource>
+                                ) : (
+                                    <ItemResource>{resource}</ItemResource>
+                                )}
                                 {admin && (
                                     <ActionsContainer>
                                         <Icons.TreeAddIcon
@@ -78,6 +83,7 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin }: Tree
                                 handleOpenModal={handleOpenModal}
                                 icons={Icons}
                                 admin={admin}
+                                displayDescription={displayDescription}
                             />
                         )}
                     </StyledTreeItem>
