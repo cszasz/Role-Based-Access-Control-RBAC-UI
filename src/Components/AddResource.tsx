@@ -19,4 +19,5 @@ export default AddResource;
 
 const AddResourceIcon = styled(AddCircleOutlineIcon)`
     vertical-align: -6px;
+    font-sze: 16px;
 `;

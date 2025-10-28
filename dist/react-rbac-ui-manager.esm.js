@@ -402,7 +402,7 @@ var AddResource = function AddResource(_ref) {
     }
   }, React.createElement(AddResourceIcon, null), " ", translate('admin_local.ui.addResource', 'Add Resource'));
 };
-var AddResourceIcon = /*#__PURE__*/styled(AddCircleOutlineIcon)(_templateObject$2 || (_templateObject$2 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    vertical-align: -6px;\n"])));
+var AddResourceIcon = /*#__PURE__*/styled(AddCircleOutlineIcon)(_templateObject$2 || (_templateObject$2 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    vertical-align: -6px;\n    font-sze: 16px;\n"])));
 
 var _templateObject$3;
 var AddRole = function AddRole(_ref) {
