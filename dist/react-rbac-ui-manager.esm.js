@@ -90,12 +90,12 @@ var _TreeGenerator = function TreeGenerator(_ref) {
         }
       }), React.createElement(ItemResourceName, {
         "$hasChildren": hasChildren
-      }, items[resource].name), displayDescription ? React.createElement(ItemResource, null, items[resource].description || '', admin && items[resource].description && React.createElement("span", {
+      }, items[resource].name), displayDescription ? React.createElement(ItemResource, null, items[resource].description ? React.createElement(React.Fragment, null, items[resource].description, admin && React.createElement("span", {
         style: {
           color: '#888',
           marginLeft: '10px'
         }
-      }, "(", resource, ")")) : React.createElement(ItemResource, null, resource), admin && React.createElement(ActionsContainer, null, React.createElement(Icons.TreeAddIcon, {
+      }, "(", resource, ")")) : admin ? resource : '') : React.createElement(ItemResource, null, resource), admin && React.createElement(ActionsContainer, null, React.createElement(Icons.TreeAddIcon, {
         style: {
           fontSize: '16px'
         },
