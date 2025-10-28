@@ -91,7 +91,7 @@ var _TreeGenerator = function TreeGenerator(_ref) {
         }
       }), React.createElement(ItemResourceName, {
         "$hasChildren": hasChildren
-      }, t("admin_local.resource." + resource + ".name", items[resource].name)), displayDescription ? React.createElement(ItemResource, null, items[resource].description ? React.createElement(React.Fragment, null, t("admin_local.resource." + resource + ".description", items[resource].description), admin && React.createElement("span", {
+      }, t("admin_local.resource." + resource, resource)), displayDescription ? React.createElement(ItemResource, null, items[resource].description ? React.createElement(React.Fragment, null, t("admin_local.resource." + resource + ".description", items[resource].description), admin && React.createElement("span", {
         style: {
           color: '#888',
           marginLeft: '10px'

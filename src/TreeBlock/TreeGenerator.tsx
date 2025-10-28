@@ -54,7 +54,7 @@ const TreeGenerator = ({
                                     <Icons.TreeNodeIcon color="primary" style={{ fontSize: '11px' }} />
                                 )}
                                 <ItemResourceName $hasChildren={hasChildren}>
-                                    {t(`admin_local.resource.${resource}.name`, items[resource].name)}
+                                    {t(`admin_local.resource.${resource}`, resource)}
                                 </ItemResourceName>
                                 {displayDescription ? (
                                     <ItemResource>
