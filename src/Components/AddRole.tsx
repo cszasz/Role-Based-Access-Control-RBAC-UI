@@ -1,12 +1,16 @@
 import React from "react";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import styled from "styled-components";
-import { I18n } from "../i18n";
+import styled from 'styled-components';
 
-const AddRole = () => {
+interface AddRoleProps {
+    t?: (key: string, fallback?: string) => string;
+}
+
+const AddRole = ({ t }: AddRoleProps) => {
+    const translate = t || ((key: string, fallback?: string) => fallback || key);
     return (
         <>
-            {I18n.t('admin_local.ui.addRole', 'Add Role')} <AddRoleIcon fontSize='small' />
+            {translate('admin_local.ui.addRole', 'Add Role')} <AddRoleIcon fontSize="small" />
         </>
     );
 };

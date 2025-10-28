@@ -1,3 +1,6 @@
 import React from "react";
-declare const AddResource: () => React.JSX.Element;
+interface AddResourceProps {
+    t?: (key: string, fallback?: string) => string;
+}
+declare const AddResource: ({ t }: AddResourceProps) => React.JSX.Element;
 export default AddResource;

@@ -10,6 +10,7 @@ interface TreeBlockProps {
     icons: IconsInterfaceInternal;
     components: ComponentsInterfaceInternal;
     admin: boolean;
+    t: (key: string, fallback?: string) => string;
 }
-declare const TreeBlock: ({ resources, expandedItems, setExpandedItems, onChange, resourceForbiddenCharsRegex, buttons: Buttons, icons: Icons, components: Components, admin, }: TreeBlockProps) => React.JSX.Element;
+declare const TreeBlock: ({ resources, expandedItems, setExpandedItems, onChange, resourceForbiddenCharsRegex, buttons: Buttons, icons: Icons, components: Components, admin, t, }: TreeBlockProps) => React.JSX.Element;
 export default TreeBlock;

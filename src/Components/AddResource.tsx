@@ -1,12 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { I18n } from "../i18n";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
-const AddResource = () => {
+interface AddResourceProps {
+    t?: (key: string, fallback?: string) => string;
+}
+
+const AddResource = ({ t }: AddResourceProps) => {
+    const translate = t || ((key: string, fallback?: string) => fallback || key);
     return (
         <>
-            <AddResourceIcon /> {I18n.t('admin_local.ui.addResource', 'Add Resource')}
+            <AddResourceIcon /> {translate('admin_local.ui.addResource', 'Add Resource')}
         </>
     );
 };

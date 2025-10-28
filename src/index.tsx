@@ -9,7 +9,6 @@ import ArrowRight from '@material-ui/icons/ArrowRight';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import MenuIcon from '@material-ui/icons/Menu';
 import { getAllResources } from './utils';
-import { I18n } from './i18n';
 import TreeBlock from './TreeBlock';
 import AddResource from './Components/AddResource';
 import AddRole from './Components/AddRole';
@@ -19,6 +18,9 @@ import CheckboxBlock from './CheckboxBlock';
 import { PermissionsObject, ResourcesItem } from './types';
 
 const EMPTY_RBAC_OBJECT = { _resources: {}, _roles: {} };
+
+// Default translation function that returns fallback or key
+const defaultTranslate = (key: string, fallback?: string): string => fallback || key;
 
 export interface ButtonsInterface {
     cancelButton?: ComponentType;
@@ -75,14 +77,9 @@ const Rbac = ({
 
     // Set translations when component mounts or translations change
     React.useEffect(() => {
-        if (translations) {
-            I18n.setTranslations(translations);
-        }
-        // If i18nFunction is provided, override the I18n.t function
-        if (i18nFunction) {
-            I18n.t = i18nFunction;
-        }
-    }, [translations, i18nFunction]);
+                              // The translations and i18nFunction are used directly in components
+                              // No need for internal state management since each component receives the translation function
+                          }, [translations, i18nFunction]);
 
     useEffect(() => {
         setExpandedItems(getAllResources(permissionsTable));
@@ -167,13 +164,20 @@ const Rbac = ({
     }, [icons]);
 
     const memoizedComponents = React.useMemo(() => {
+        const translate = i18nFunction || defaultTranslate;
         return {
-            AddResource: components.addResource || AddResource,
-            AddRole: components.addRole || AddRole,
+            AddResource: (props: any) =>
+                components.addResource
+                    ? React.createElement(components.addResource, props)
+                    : React.createElement(AddResource, { ...props, t: translate }),
+            AddRole: (props: any) =>
+                components.addRole
+                    ? React.createElement(components.addRole, props)
+                    : React.createElement(AddRole, { ...props, t: translate }),
             RoleTag: components.roleTag || RoleTag,
             CheckboxTableContainer: components.checkboxTableContainer || CheckboxTableContainer,
         };
-    }, [components]);
+    }, [components, i18nFunction]);
 
     return (
         <React.Fragment>
@@ -191,6 +195,7 @@ const Rbac = ({
                         icons={memoizedIcons}
                         components={memoizedComponents}
                         admin={admin}
+                        t={i18nFunction || defaultTranslate}
                     />
                     <CheckboxBlock
                         permissionsTable={permissionsTable}
@@ -201,6 +206,7 @@ const Rbac = ({
                         icons={memoizedIcons}
                         components={memoizedComponents}
                         admin={admin}
+                        t={i18nFunction || defaultTranslate}
                     />
                 </StyledContainer>
             )}
@@ -209,7 +215,6 @@ const Rbac = ({
 };
 
 export default Rbac;
-export { I18n };
 
 const StyledContainer = styled.div`
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;

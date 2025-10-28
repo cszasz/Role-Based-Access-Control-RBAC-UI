@@ -13,7 +13,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
-import { I18n } from '../i18n';
 
 import {
     ButtonsInterfaceInternal,
@@ -31,7 +30,8 @@ interface CheckboxBlockProps {
     buttons: ButtonsInterfaceInternal;
     icons: IconsInterfaceInternal;
     components: ComponentsInterfaceInternal;
-    admin: boolean
+    admin: boolean;
+    t: (key: string, fallback?: string) => string;
 }
 
 const CheckboxBlock = ({
@@ -42,6 +42,7 @@ const CheckboxBlock = ({
     buttons: Buttons,
     icons: Icons,
     components: Components,
+    t,
 }: CheckboxBlockProps) => {
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
     const [currentModalRole, setCurrentModalRole] = React.useState<string>('');
@@ -149,7 +150,7 @@ const CheckboxBlock = ({
         }
 
         if (roleName in permissionsTable._roles) {
-            setErrorHelperText(I18n.t('admin_local.error.roleExists', 'Role name already exists'));
+            setErrorHelperText(t('admin_local.error.roleExists', 'Role name already exists'));
             setErrorInRoleName(true);
             return false;
         }
@@ -186,10 +187,10 @@ const CheckboxBlock = ({
                 disableBackdropClick
             >
                 <DialogContainer>
-                    <DialogTitle>{I18n.t('admin_local.ui.role', 'Role')}</DialogTitle>
+                    <DialogTitle>{t('admin_local.ui.role', 'Role')}</DialogTitle>
                     <DialogContent>
                         <InputRowContainer>
-                            <InputLabel htmlFor="name">{I18n.t('admin_local.ui.roleName', 'Role Name:')}</InputLabel>
+                            <InputLabel htmlFor="name">{t('admin_local.ui.roleName', 'Role Name:')}</InputLabel>
                             <TextField
                                 id="name"
                                 type="text"
@@ -209,29 +210,30 @@ const CheckboxBlock = ({
                                 handleCloseModal(false);
                             }}
                         >
-                            {I18n.t('admin_local.ui.cancel', 'Cancel')}
+                            {t('admin_local.ui.cancel', 'Cancel')}
                         </Buttons.CancelButton>
                         <Buttons.SaveButton variant="contained" color="primary" onClick={handleRole}>
-                            {I18n.t('admin_local.ui.save', 'Save')}
+                            {t('admin_local.ui.save', 'Save')}
                         </Buttons.SaveButton>
                     </DialogActions>
                 </DialogContainer>
             </Dialog>
             <Dialog open={modalDeleteIsOpen} onClose={() => handleCloseModal(true)} disableBackdropClick>
                 <DialogContainer>
-                    <DialogTitle>{I18n.t('admin_local.ui.deleteResources', 'Delete Resources')}</DialogTitle>
+                    <DialogTitle>{t('admin_local.ui.deleteResources', 'Delete Resources')}</DialogTitle>
                     <DialogContent>
                         <Typography>
-                            {I18n.t('admin_local.confirm.deleteRole', 'Are you sure you want to delete the role')} <b>{currentModalRole}</b>?
+                            {t('admin_local.confirm.deleteRole', 'Are you sure you want to delete the role')}{' '}
+                            <b>{currentModalRole}</b>?
                         </Typography>
-                        <Typography>{I18n.t('admin_local.confirm.undoAction', 'This action cannot be undone.')}</Typography>
+                        <Typography>{t('admin_local.confirm.undoAction', 'This action cannot be undone.')}</Typography>
                     </DialogContent>
                     <DialogActions>
                         <Buttons.CancelButton variant="outlined" onClick={() => handleCloseModal(true)}>
-                            {I18n.t('admin_local.ui.cancel', 'Cancel')}
+                            {t('admin_local.ui.cancel', 'Cancel')}
                         </Buttons.CancelButton>
                         <Buttons.DeleteButton variant="contained" onClick={handleDeleteRole}>
-                            {I18n.t('admin_local.ui.delete', 'Delete')}
+                            {t('admin_local.ui.delete', 'Delete')}
                         </Buttons.DeleteButton>
                     </DialogActions>
                 </DialogContainer>

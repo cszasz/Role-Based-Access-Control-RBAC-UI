@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import TreeItem from '@material-ui/lab/TreeItem';
 import { withTheme } from '@material-ui/core';
 import { FnTreeBlockHandleOpenModal, IconsInterfaceInternal, ResourcesItem } from '../types';
-import { I18n } from '../i18n';
 
 interface TreeGeneratorProps {
     resources: ResourcesItem['_resources'];
@@ -11,9 +10,17 @@ interface TreeGeneratorProps {
     icons: IconsInterfaceInternal;
     admin: boolean;
     displayDescription?: boolean;
+    t: (key: string, fallback?: string) => string;
 }
 
-const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin, displayDescription }: TreeGeneratorProps) => {
+const TreeGenerator = ({
+    resources,
+    handleOpenModal,
+    icons: Icons,
+    admin,
+    displayDescription,
+    t,
+}: TreeGeneratorProps) => {
     const items = resources || {};
 
     const handleAdd = (e: React.MouseEvent, resource: string) => {
@@ -47,13 +54,16 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin, displa
                                     <Icons.TreeNodeIcon color="primary" style={{ fontSize: '11px' }} />
                                 )}
                                 <ItemResourceName $hasChildren={hasChildren}>
-                                    {I18n.t(`admin_local.resource.${resource}.name`, items[resource].name)}
+                                    {t(`admin_local.resource.${resource}.name`, items[resource].name)}
                                 </ItemResourceName>
                                 {displayDescription ? (
                                     <ItemResource>
                                         {items[resource].description ? (
                                             <>
-                                                {I18n.t(`admin_local.resource.${resource}.description`, items[resource].description)}
+                                                {t(
+                                                    `admin_local.resource.${resource}.description`,
+                                                    items[resource].description
+                                                )}
                                                 {admin && (
                                                     <span style={{ color: '#888', marginLeft: '10px' }}>
                                                         ({resource})
@@ -102,6 +112,7 @@ const TreeGenerator = ({ resources, handleOpenModal, icons: Icons, admin, displa
                                 icons={Icons}
                                 admin={admin}
                                 displayDescription={displayDescription}
+                                t={t}
                             />
                         )}
                     </StyledTreeItem>

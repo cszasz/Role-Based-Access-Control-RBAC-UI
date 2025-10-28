@@ -54,65 +54,14 @@ var getAllResources = function getAllResources(data) {
   return _recurse(data);
 };
 
-// Default translations - can be extended or replaced
-var defaultTranslations = {
-  // UI Labels
-  'admin_local.ui.resource': 'Resource',
-  'admin_local.ui.description': 'Description',
-  'admin_local.ui.permission': 'Permission',
-  'admin_local.ui.newResource': 'New Resource',
-  'admin_local.ui.deleteResources': 'Delete Resources',
-  'admin_local.ui.resourceName': 'Resource Name:',
-  'admin_local.ui.descriptionLabel': 'Description:',
-  'admin_local.ui.permissionName': 'Permission name:',
-  'admin_local.ui.close': 'Close',
-  'admin_local.ui.save': 'Save',
-  'admin_local.ui.delete': 'Delete',
-  'admin_local.ui.cancel': 'Cancel',
-  'admin_local.ui.addResource': 'Add Resource',
-  'admin_local.ui.addRole': 'Add Role',
-  'admin_local.ui.role': 'Role',
-  'admin_local.ui.roleName': 'Role Name:',
-  // Error messages
-  'admin_local.error.permissionExists': 'Permission name already exists',
-  'admin_local.error.roleExists': 'Role name already exists',
-  // Confirmation messages
-  'admin_local.confirm.deleteResources': 'Are you sure you want to delete the following resources:',
-  'admin_local.confirm.deleteRole': 'Are you sure you want to delete the role',
-  'admin_local.confirm.undoAction': 'This action cannot be undone.'
-};
-var currentTranslations = /*#__PURE__*/_extends({}, defaultTranslations);
-// Translation function
-var I18n = {
-  // Main translation function - can be overridden
-  t: function t(key, fallback) {
-    return currentTranslations[key] || fallback || key;
-  },
-  // Set custom translations
-  setTranslations: function setTranslations(translations) {
-    currentTranslations = _extends({}, defaultTranslations, translations);
-  },
-  // Add translations without replacing existing ones
-  addTranslations: function addTranslations(translations) {
-    currentTranslations = _extends({}, currentTranslations, translations);
-  },
-  // Get all current translations
-  getTranslations: function getTranslations() {
-    return _extends({}, currentTranslations);
-  },
-  // Reset to default translations
-  reset: function reset() {
-    currentTranslations = _extends({}, defaultTranslations);
-  }
-};
-
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6;
 var _TreeGenerator = function TreeGenerator(_ref) {
   var resources = _ref.resources,
     handleOpenModal = _ref.handleOpenModal,
     Icons = _ref.icons,
     admin = _ref.admin,
-    displayDescription = _ref.displayDescription;
+    displayDescription = _ref.displayDescription,
+    t = _ref.t;
   var items = resources || {};
   var handleAdd = function handleAdd(e, resource) {
     e.stopPropagation();
@@ -142,7 +91,7 @@ var _TreeGenerator = function TreeGenerator(_ref) {
         }
       }), React.createElement(ItemResourceName, {
         "$hasChildren": hasChildren
-      }, I18n.t("admin_local.resource." + resource + ".name", items[resource].name)), displayDescription ? React.createElement(ItemResource, null, items[resource].description ? React.createElement(React.Fragment, null, I18n.t("admin_local.resource." + resource + ".description", items[resource].description), admin && React.createElement("span", {
+      }, t("admin_local.resource." + resource + ".name", items[resource].name)), displayDescription ? React.createElement(ItemResource, null, items[resource].description ? React.createElement(React.Fragment, null, t("admin_local.resource." + resource + ".description", items[resource].description), admin && React.createElement("span", {
         style: {
           color: '#888',
           marginLeft: '10px'
@@ -175,7 +124,8 @@ var _TreeGenerator = function TreeGenerator(_ref) {
       handleOpenModal: handleOpenModal,
       icons: Icons,
       admin: admin,
-      displayDescription: displayDescription
+      displayDescription: displayDescription,
+      t: t
     }));
   }));
 };
@@ -209,7 +159,8 @@ var TreeBlock = function TreeBlock(_ref) {
     Buttons = _ref.buttons,
     Icons = _ref.icons,
     Components = _ref.components,
-    admin = _ref.admin;
+    admin = _ref.admin,
+    t = _ref.t;
   var _React$useState = React.useState(false),
     modalIsOpen = _React$useState[0],
     setModalIsOpen = _React$useState[1];
@@ -247,7 +198,7 @@ var TreeBlock = function TreeBlock(_ref) {
     var permission = "" + (currentModalResourceKey ? currentModalResourceKey + "." : '') + (permissionEl == null || (_permissionEl$current = permissionEl.current) == null ? void 0 : _permissionEl$current.value);
     var parent = currentModalResourceRef;
     if (parent && permission in parent._resources) {
-      setErrorHelperText(I18n.t('admin_local.error.permissionExists', 'Permission name already exists'));
+      setErrorHelperText(t('admin_local.error.permissionExists', 'Permission name already exists'));
       setErrorInPermission(true);
       return;
     }
@@ -318,9 +269,9 @@ var TreeBlock = function TreeBlock(_ref) {
       handleCloseModal(false);
     },
     disableBackdropClick: true
-  }, React.createElement(DialogContainer, null, React.createElement(DialogTitle, null, I18n.t('admin_local.ui.newResource', 'New Resource')), React.createElement(DialogContent, null, React.createElement(InputRowContainer, null, React.createElement(InputLabel, {
+  }, React.createElement(DialogContainer, null, React.createElement(DialogTitle, null, t('admin_local.ui.newResource', 'New Resource')), React.createElement(DialogContent, null, React.createElement(InputRowContainer, null, React.createElement(InputLabel, {
     htmlFor: "name"
-  }, I18n.t('admin_local.ui.resourceName', 'Resource Name:')), React.createElement(PermissionStyledInput, {
+  }, t('admin_local.ui.resourceName', 'Resource Name:')), React.createElement(PermissionStyledInput, {
     id: "name",
     onChange: function onChange(e) {
       var val = e.target.value.replace(resourceForbiddenCharsRegex || DEFAULT_FORBIDDEN_CHARS_REGEX, '').toLowerCase();
@@ -337,14 +288,14 @@ var TreeBlock = function TreeBlock(_ref) {
     autoFocus: true
   })), React.createElement(InputRowContainer, null, React.createElement(InputLabel, {
     htmlFor: "description"
-  }, I18n.t('admin_local.ui.descriptionLabel', 'Description:')), React.createElement(PermissionStyledInput, {
+  }, t('admin_local.ui.descriptionLabel', 'Description:')), React.createElement(PermissionStyledInput, {
     id: "description",
     type: "text",
     inputRef: descriptionEl,
     defaultValue: modalInEditMode ? currentModalResourceRef.description : undefined
   })), React.createElement(InputRowContainer, null, React.createElement(InputLabel, {
     htmlFor: "permission"
-  }, I18n.t('admin_local.ui.permissionName', 'Permission name:')), React.createElement(PermissionStyledInput, {
+  }, t('admin_local.ui.permissionName', 'Permission name:')), React.createElement(PermissionStyledInput, {
     id: "permission",
     type: "text",
     inputRef: permissionEl,
@@ -363,21 +314,21 @@ var TreeBlock = function TreeBlock(_ref) {
     onClick: function onClick() {
       handleCloseModal(false);
     }
-  }, I18n.t('admin_local.ui.close', 'Close')), React.createElement(Buttons.SaveButton, {
+  }, t('admin_local.ui.close', 'Close')), React.createElement(Buttons.SaveButton, {
     variant: "contained",
     color: "primary",
     onClick: handleResource
-  }, I18n.t('admin_local.ui.save', 'Save'))))), React.createElement(Dialog, {
+  }, t('admin_local.ui.save', 'Save'))))), React.createElement(Dialog, {
     open: modalDeleteIsOpen,
     onClose: function onClose() {
       return handleCloseModal(true);
     },
     disableBackdropClick: true
-  }, React.createElement(DialogContainer, null, React.createElement(DialogTitle, null, I18n.t('admin_local.ui.deleteResources', 'Delete Resources')), React.createElement(DialogContent, null, React.createElement("div", {
+  }, React.createElement(DialogContainer, null, React.createElement(DialogTitle, null, t('admin_local.ui.deleteResources', 'Delete Resources')), React.createElement(DialogContent, null, React.createElement("div", {
     style: {
       display: 'flex'
     }
-  }, React.createElement(Typography, null, I18n.t('admin_local.confirm.deleteResources', 'Are you sure you want to delete the following resources:'))), React.createElement(TreeView, {
+  }, React.createElement(Typography, null, t('admin_local.confirm.deleteResources', 'Are you sure you want to delete the following resources:'))), React.createElement(TreeView, {
     defaultCollapseIcon: React.createElement(Icons.TreeCollapseIcon, null),
     defaultExpandIcon: React.createElement(Icons.TreeExpandIcon, null),
     defaultExpanded: expandedItems,
@@ -386,17 +337,18 @@ var TreeBlock = function TreeBlock(_ref) {
     resources: (_resources = {}, _resources[currentModalResourceKey] = currentModalResourceRef, _resources),
     handleOpenModal: handleOpenModal,
     icons: Icons,
-    admin: admin
+    admin: admin,
+    t: t
   }))), React.createElement(DialogActions, null, React.createElement(Buttons.CloseButton, {
     variant: "outlined",
     onClick: function onClick() {
       return handleCloseModal(true);
     }
-  }, I18n.t('admin_local.ui.close', 'Close')), React.createElement(Buttons.DeleteButton, {
+  }, t('admin_local.ui.close', 'Close')), React.createElement(Buttons.DeleteButton, {
     variant: "contained",
     color: "secondary",
     onClick: handleDeleteResources
-  }, I18n.t('admin_local.ui.delete', 'Delete'))))), React.createElement(TreeHeaderContainer, null, React.createElement(ResourceTitle, null, I18n.t('admin_local.ui.resource', 'Resource')), React.createElement(PermissionTitle, null, admin ? I18n.t('admin_local.ui.description', 'Description') + ' (' + I18n.t('admin_local.ui.permission', 'Permission') + ')' : I18n.t('admin_local.ui.description', 'Description'))), React.createElement(StyledTreeView, {
+  }, t('admin_local.ui.delete', 'Delete'))))), React.createElement(TreeHeaderContainer, null, React.createElement(ResourceTitle, null, t('admin_local.ui.resource', 'Resource')), React.createElement(PermissionTitle, null, admin ? t('admin_local.ui.description', 'Description') + ' (' + t('admin_local.ui.permission', 'Permission') + ')' : t('admin_local.ui.description', 'Description'))), React.createElement(StyledTreeView, {
     defaultCollapseIcon: React.createElement(Icons.TreeCollapseIcon, null),
     defaultExpandIcon: React.createElement(Icons.TreeExpandIcon, null),
     expanded: expandedItems,
@@ -407,7 +359,8 @@ var TreeBlock = function TreeBlock(_ref) {
     handleOpenModal: handleOpenModal,
     icons: Icons,
     admin: admin,
-    displayDescription: true
+    displayDescription: true,
+    t: t
   })), admin && React.createElement(AddResourceBlock, {
     onClick: function onClick() {
       handleOpenModal(resources);
@@ -438,15 +391,23 @@ var PermissionStyledInput = /*#__PURE__*/withTheme(/*#__PURE__*/styled(TextField
 var InputRowContainer = /*#__PURE__*/styled.div(_templateObject8 || (_templateObject8 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    display: flex;\n\n    .MuiFormLabel-root {\n        padding-top: 8px;\n    }\n"])));
 
 var _templateObject$2;
-var AddResource = function AddResource() {
-  return React.createElement(React.Fragment, null, React.createElement(AddResourceIcon, null), " ", I18n.t('admin_local.ui.addResource', 'Add Resource'));
+var AddResource = function AddResource(_ref) {
+  var t = _ref.t;
+  var translate = t || function (key, fallback) {
+    return fallback || key;
+  };
+  return React.createElement(React.Fragment, null, React.createElement(AddResourceIcon, null), " ", translate('admin_local.ui.addResource', 'Add Resource'));
 };
 var AddResourceIcon = /*#__PURE__*/styled(AddCircleOutlineIcon)(_templateObject$2 || (_templateObject$2 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    vertical-align: -6px;\n"])));
 
 var _templateObject$3;
-var AddRole = function AddRole() {
-  return React.createElement(React.Fragment, null, I18n.t('admin_local.ui.addRole', 'Add Role'), " ", React.createElement(AddRoleIcon, {
-    fontSize: 'small'
+var AddRole = function AddRole(_ref) {
+  var t = _ref.t;
+  var translate = t || function (key, fallback) {
+    return fallback || key;
+  };
+  return React.createElement(React.Fragment, null, translate('admin_local.ui.addRole', 'Add Role'), " ", React.createElement(AddRoleIcon, {
+    fontSize: "small"
   }));
 };
 var AddRoleIcon = /*#__PURE__*/styled(AddCircleOutlineIcon)(_templateObject$3 || (_templateObject$3 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    vertical-align: -4px;\n"])));
@@ -469,7 +430,8 @@ var CheckboxBlock = function CheckboxBlock(_ref) {
     nodesWithChildren = _ref.nodesWithChildren,
     Buttons = _ref.buttons,
     Icons = _ref.icons,
-    Components = _ref.components;
+    Components = _ref.components,
+    t = _ref.t;
   var _React$useState = React.useState(false),
     modalIsOpen = _React$useState[0],
     setModalIsOpen = _React$useState[1];
@@ -591,7 +553,7 @@ var CheckboxBlock = function CheckboxBlock(_ref) {
       return false;
     }
     if (roleName in permissionsTable._roles) {
-      setErrorHelperText(I18n.t('admin_local.error.roleExists', 'Role name already exists'));
+      setErrorHelperText(t('admin_local.error.roleExists', 'Role name already exists'));
       setErrorInRoleName(true);
       return false;
     }
@@ -622,9 +584,9 @@ var CheckboxBlock = function CheckboxBlock(_ref) {
       handleCloseModal(false);
     },
     disableBackdropClick: true
-  }, React.createElement(DialogContainer$1, null, React.createElement(DialogTitle, null, I18n.t('admin_local.ui.role', 'Role')), React.createElement(DialogContent, null, React.createElement(InputRowContainer$1, null, React.createElement(InputLabel, {
+  }, React.createElement(DialogContainer$1, null, React.createElement(DialogTitle, null, t('admin_local.ui.role', 'Role')), React.createElement(DialogContent, null, React.createElement(InputRowContainer$1, null, React.createElement(InputLabel, {
     htmlFor: "name"
-  }, I18n.t('admin_local.ui.roleName', 'Role Name:')), React.createElement(TextField, {
+  }, t('admin_local.ui.roleName', 'Role Name:')), React.createElement(TextField, {
     id: "name",
     type: "text",
     inputRef: roleNameEl,
@@ -640,25 +602,25 @@ var CheckboxBlock = function CheckboxBlock(_ref) {
     onClick: function onClick() {
       handleCloseModal(false);
     }
-  }, I18n.t('admin_local.ui.cancel', 'Cancel')), React.createElement(Buttons.SaveButton, {
+  }, t('admin_local.ui.cancel', 'Cancel')), React.createElement(Buttons.SaveButton, {
     variant: "contained",
     color: "primary",
     onClick: handleRole
-  }, I18n.t('admin_local.ui.save', 'Save'))))), React.createElement(Dialog, {
+  }, t('admin_local.ui.save', 'Save'))))), React.createElement(Dialog, {
     open: modalDeleteIsOpen,
     onClose: function onClose() {
       return handleCloseModal(true);
     },
     disableBackdropClick: true
-  }, React.createElement(DialogContainer$1, null, React.createElement(DialogTitle, null, I18n.t('admin_local.ui.deleteResources', 'Delete Resources')), React.createElement(DialogContent, null, React.createElement(Typography, null, I18n.t('admin_local.confirm.deleteRole', 'Are you sure you want to delete the role'), " ", React.createElement("b", null, currentModalRole), "?"), React.createElement(Typography, null, I18n.t('admin_local.confirm.undoAction', 'This action cannot be undone.'))), React.createElement(DialogActions, null, React.createElement(Buttons.CancelButton, {
+  }, React.createElement(DialogContainer$1, null, React.createElement(DialogTitle, null, t('admin_local.ui.deleteResources', 'Delete Resources')), React.createElement(DialogContent, null, React.createElement(Typography, null, t('admin_local.confirm.deleteRole', 'Are you sure you want to delete the role'), ' ', React.createElement("b", null, currentModalRole), "?"), React.createElement(Typography, null, t('admin_local.confirm.undoAction', 'This action cannot be undone.'))), React.createElement(DialogActions, null, React.createElement(Buttons.CancelButton, {
     variant: "outlined",
     onClick: function onClick() {
       return handleCloseModal(true);
     }
-  }, I18n.t('admin_local.ui.cancel', 'Cancel')), React.createElement(Buttons.DeleteButton, {
+  }, t('admin_local.ui.cancel', 'Cancel')), React.createElement(Buttons.DeleteButton, {
     variant: "contained",
     onClick: handleDeleteRole
-  }, I18n.t('admin_local.ui.delete', 'Delete'))))), React.createElement(AddRoleBlock, null, React.createElement("span", {
+  }, t('admin_local.ui.delete', 'Delete'))))), React.createElement(AddRoleBlock, null, React.createElement("span", {
     onClick: function onClick() {
       handleOpenModal('');
     }
@@ -713,6 +675,10 @@ var EMPTY_RBAC_OBJECT = {
   _resources: {},
   _roles: {}
 };
+// Default translation function that returns fallback or key
+var defaultTranslate = function defaultTranslate(key, fallback) {
+  return fallback || key;
+};
 var Rbac = function Rbac(_ref) {
   var _ref$defaultValue = _ref.defaultValue,
     defaultValue = _ref$defaultValue === void 0 ? EMPTY_RBAC_OBJECT : _ref$defaultValue,
@@ -738,13 +704,8 @@ var Rbac = function Rbac(_ref) {
     setNodesWithChildren = _React$useState3[1];
   // Set translations when component mounts or translations change
   React.useEffect(function () {
-    if (translations) {
-      I18n.setTranslations(translations);
-    }
-    // If i18nFunction is provided, override the I18n.t function
-    if (i18nFunction) {
-      I18n.t = i18nFunction;
-    }
+    // The translations and i18nFunction are used directly in components
+    // No need for internal state management since each component receives the translation function
   }, [translations, i18nFunction]);
   useEffect(function () {
     setExpandedItems(getAllResources(permissionsTable));
@@ -818,13 +779,22 @@ var Rbac = function Rbac(_ref) {
     };
   }, [icons]);
   var memoizedComponents = React.useMemo(function () {
+    var translate = i18nFunction || defaultTranslate;
     return {
-      AddResource: components.addResource || AddResource,
-      AddRole: components.addRole || AddRole,
+      AddResource: function AddResource$1(props) {
+        return components.addResource ? React.createElement(components.addResource, props) : React.createElement(AddResource, _extends({}, props, {
+          t: translate
+        }));
+      },
+      AddRole: function AddRole$1(props) {
+        return components.addRole ? React.createElement(components.addRole, props) : React.createElement(AddRole, _extends({}, props, {
+          t: translate
+        }));
+      },
       RoleTag: components.roleTag || RoleTag,
       CheckboxTableContainer: components.checkboxTableContainer || CheckboxTableContainer
     };
-  }, [components]);
+  }, [components, i18nFunction]);
   return React.createElement(React.Fragment, null, permissionsTable && React.createElement(StyledContainer, null, React.createElement(TreeBlock, {
     resources: {
       _resources: permissionsTable._resources
@@ -836,7 +806,8 @@ var Rbac = function Rbac(_ref) {
     buttons: memoizedButtons,
     icons: memoizedIcons,
     components: memoizedComponents,
-    admin: admin
+    admin: admin,
+    t: i18nFunction || defaultTranslate
   }), React.createElement(CheckboxBlock, {
     permissionsTable: permissionsTable,
     expandedItems: expandedItems,
@@ -845,11 +816,11 @@ var Rbac = function Rbac(_ref) {
     buttons: memoizedButtons,
     icons: memoizedIcons,
     components: memoizedComponents,
-    admin: admin
+    admin: admin,
+    t: i18nFunction || defaultTranslate
   })));
 };
 var StyledContainer = /*#__PURE__*/styled.div(_templateObject$7 || (_templateObject$7 = /*#__PURE__*/_taggedTemplateLiteralLoose(["\n    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;\n    width: 100%;\n    display: flex;\n    > div {\n        width: 100%;\n        flex-grow: 1;\n    }\n"])));
 
 export default Rbac;
-export { I18n };
 //# sourceMappingURL=react-rbac-ui-manager.esm.js.map

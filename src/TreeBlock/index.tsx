@@ -11,7 +11,6 @@ import TreeView from '@material-ui/lab/TreeView';
 import styled from 'styled-components';
 import TableContainer from '@material-ui/core/TableContainer';
 import TreeGenerator, { ItemResource, TreeItemContent, ActionsContainer } from './TreeGenerator';
-import { I18n } from '../i18n';
 import {
     ButtonsInterfaceInternal,
     ComponentsInterfaceInternal,
@@ -35,6 +34,7 @@ interface TreeBlockProps {
     icons: IconsInterfaceInternal;
     components: ComponentsInterfaceInternal;
     admin: boolean;
+    t: (key: string, fallback?: string) => string;
 }
 
 const TreeBlock = ({
@@ -47,6 +47,7 @@ const TreeBlock = ({
     icons: Icons,
     components: Components,
     admin,
+    t,
 }: TreeBlockProps) => {
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
     const [modalDeleteIsOpen, setModalDeleteIsOpen] = React.useState<boolean>(false);
@@ -74,17 +75,17 @@ const TreeBlock = ({
         const parent = currentModalResourceRef;
 
         if (parent && permission in parent._resources) {
-            setErrorHelperText(I18n.t('admin_local.error.permissionExists', 'Permission name already exists'));
+            setErrorHelperText(t('admin_local.error.permissionExists', 'Permission name already exists'));
             setErrorInPermission(true);
             return;
         }
 
         if (modalInEditMode && currentModalResourceRef) {
-                                                            // @ts-ignore
-                                                            currentModalResourceRef.name = name;
-                                                            // @ts-ignore
-                                                            currentModalResourceRef.description = description;
-                                                        } else {
+            // @ts-ignore
+            currentModalResourceRef.name = name;
+            // @ts-ignore
+            currentModalResourceRef.description = description;
+        } else {
             if (parent) {
                 // @ts-ignore
                 parent._resources[permission] = {
@@ -154,10 +155,10 @@ const TreeBlock = ({
                 disableBackdropClick
             >
                 <DialogContainer>
-                    <DialogTitle>{I18n.t('admin_local.ui.newResource', 'New Resource')}</DialogTitle>
+                    <DialogTitle>{t('admin_local.ui.newResource', 'New Resource')}</DialogTitle>
                     <DialogContent>
                         <InputRowContainer>
-                            <InputLabel htmlFor="name">{I18n.t('admin_local.ui.resourceName', 'Resource Name:')}</InputLabel>
+                            <InputLabel htmlFor="name">{t('admin_local.ui.resourceName', 'Resource Name:')}</InputLabel>
                             <PermissionStyledInput
                                 id="name"
                                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -182,7 +183,9 @@ const TreeBlock = ({
                             />
                         </InputRowContainer>
                         <InputRowContainer>
-                            <InputLabel htmlFor="description">{I18n.t('admin_local.ui.descriptionLabel', 'Description:')}</InputLabel>
+                            <InputLabel htmlFor="description">
+                                {t('admin_local.ui.descriptionLabel', 'Description:')}
+                            </InputLabel>
                             <PermissionStyledInput
                                 id="description"
                                 type="text"
@@ -195,7 +198,9 @@ const TreeBlock = ({
                             />
                         </InputRowContainer>
                         <InputRowContainer>
-                            <InputLabel htmlFor="permission">{I18n.t('admin_local.ui.permissionName', 'Permission name:')}</InputLabel>
+                            <InputLabel htmlFor="permission">
+                                {t('admin_local.ui.permissionName', 'Permission name:')}
+                            </InputLabel>
                             <PermissionStyledInput
                                 id="permission"
                                 type="text"
@@ -224,20 +229,25 @@ const TreeBlock = ({
                                 handleCloseModal(false);
                             }}
                         >
-                            {I18n.t('admin_local.ui.close', 'Close')}
+                            {t('admin_local.ui.close', 'Close')}
                         </Buttons.CloseButton>
                         <Buttons.SaveButton variant="contained" color="primary" onClick={handleResource}>
-                            {I18n.t('admin_local.ui.save', 'Save')}
+                            {t('admin_local.ui.save', 'Save')}
                         </Buttons.SaveButton>
                     </DialogActions>
                 </DialogContainer>
             </Dialog>
             <Dialog open={modalDeleteIsOpen} onClose={() => handleCloseModal(true)} disableBackdropClick>
                 <DialogContainer>
-                    <DialogTitle>{I18n.t('admin_local.ui.deleteResources', 'Delete Resources')}</DialogTitle>
+                    <DialogTitle>{t('admin_local.ui.deleteResources', 'Delete Resources')}</DialogTitle>
                     <DialogContent>
                         <div style={{ display: 'flex' }}>
-                            <Typography>{I18n.t('admin_local.confirm.deleteResources', 'Are you sure you want to delete the following resources:')}</Typography>
+                            <Typography>
+                                {t(
+                                    'admin_local.confirm.deleteResources',
+                                    'Are you sure you want to delete the following resources:'
+                                )}
+                            </Typography>
                         </div>
                         <TreeView
                             defaultCollapseIcon={<Icons.TreeCollapseIcon />}
@@ -254,23 +264,29 @@ const TreeBlock = ({
                                 handleOpenModal={handleOpenModal}
                                 icons={Icons}
                                 admin={admin}
+                                t={t}
                             />
                         </TreeView>
                     </DialogContent>
                     <DialogActions>
                         <Buttons.CloseButton variant="outlined" onClick={() => handleCloseModal(true)}>
-                            {I18n.t('admin_local.ui.close', 'Close')}
+                            {t('admin_local.ui.close', 'Close')}
                         </Buttons.CloseButton>
                         <Buttons.DeleteButton variant="contained" color="secondary" onClick={handleDeleteResources}>
-                            {I18n.t('admin_local.ui.delete', 'Delete')}
+                            {t('admin_local.ui.delete', 'Delete')}
                         </Buttons.DeleteButton>
                     </DialogActions>
                 </DialogContainer>
             </Dialog>
             <TreeHeaderContainer>
-                <ResourceTitle>{I18n.t('admin_local.ui.resource', 'Resource')}</ResourceTitle>
+                <ResourceTitle>{t('admin_local.ui.resource', 'Resource')}</ResourceTitle>
                 <PermissionTitle>
-                    {admin ? I18n.t('admin_local.ui.description', 'Description') + ' (' + I18n.t('admin_local.ui.permission', 'Permission') + ')' : I18n.t('admin_local.ui.description', 'Description')}
+                    {admin
+                        ? t('admin_local.ui.description', 'Description') +
+                          ' (' +
+                          t('admin_local.ui.permission', 'Permission') +
+                          ')'
+                        : t('admin_local.ui.description', 'Description')}
                 </PermissionTitle>
             </TreeHeaderContainer>
             <StyledTreeView
@@ -286,6 +302,7 @@ const TreeBlock = ({
                     icons={Icons}
                     admin={admin}
                     displayDescription
+                    t={t}
                 />
             </StyledTreeView>
             {admin && (

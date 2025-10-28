@@ -1,3 +1,6 @@
 import React from "react";
-declare const AddRole: () => React.JSX.Element;
+interface AddRoleProps {
+    t?: (key: string, fallback?: string) => string;
+}
+declare const AddRole: ({ t }: AddRoleProps) => React.JSX.Element;
 export default AddRole;
