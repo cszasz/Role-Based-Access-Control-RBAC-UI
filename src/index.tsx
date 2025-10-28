@@ -55,6 +55,7 @@ interface RbacProps {
     components?: ComponentsInterface;
     admin: boolean;
     translations?: { [key: string]: string };
+    i18nFunction?: (key: string, fallback?: string) => string;
 }
 
 const Rbac = ({
@@ -66,6 +67,7 @@ const Rbac = ({
     components = {},
     admin,
     translations,
+    i18nFunction,
 }: RbacProps) => {
     const [permissionsTable, setPermissionsTable] = React.useState<PermissionsObject>(defaultValue);
     const [expandedItems, setExpandedItems] = React.useState<string[]>([]);
@@ -76,7 +78,11 @@ const Rbac = ({
         if (translations) {
             I18n.setTranslations(translations);
         }
-    }, [translations]);
+        // If i18nFunction is provided, override the I18n.t function
+        if (i18nFunction) {
+            I18n.t = i18nFunction;
+        }
+    }, [translations, i18nFunction]);
 
     useEffect(() => {
         setExpandedItems(getAllResources(permissionsTable));

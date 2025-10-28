@@ -37,7 +37,7 @@ let currentTranslations: Translations = { ...defaultTranslations };
 
 // Translation function
 export const I18n = {
-    // Main translation function
+    // Main translation function - can be overridden
     t: (key: string, fallback?: string): string => {
         return currentTranslations[key] || fallback || key;
     },

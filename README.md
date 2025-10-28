@@ -95,6 +95,7 @@ The Rbac component accepts the following props (none of which is required):
 |**`icons`**|object|Object contains icons to be used as replacement for the default icons (see below)
 |**`components`**|object|Object contains components to be used as replacement for the default components (see below)
 |**`translations`**|object|Object contains translation key-value pairs for internationalization (see below)
+|**`i18nFunction`**|function|Function to use for translations instead of the built-in system. Signature: `(key: string, fallback?: string) => string`
 
 **The Buttons object:**
 |Name|Type|Description
@@ -132,9 +133,46 @@ The Rbac component accepts the following props (none of which is required):
 
 ## Internationalization (i18n)
 
-The component supports internationalization through the `translations` prop. All translation keys are prefixed with `admin_local.`.
+The component supports internationalization in two ways:
 
-### Available Translation Keys:
+### Option 1: Using existing I18n system (Recommended)
+
+If you already have an I18n system in your app that handles `admin_local.*` keys, you can pass your translation function directly:
+
+```typescript jsx
+import Rbac from "@build-security/react-rbac-ui-manager";
+import { I18n } from 'your-existing-i18n-library'; // Your existing I18n
+
+const handleChange = (value) => {
+    console.log(value)
+};
+
+<Rbac
+    onChange={handleChange}
+    admin={true}
+    i18nFunction={I18n.t} // Pass your existing I18n.t function
+/>
+```
+
+### Option 2: Using translations object
+
+If you don't have an existing I18n system, you can pass a translations object:
+
+```typescript jsx
+import Rbac from "@build-security/react-rbac-ui-manager";
+
+const hungarianTranslations = {
+  'admin_local.ui.resource': 'Erőforrás',
+  'admin_local.ui.description': 'Leírás',
+  'admin_local.ui.save': 'Mentés',
+  // ... more translations
+};
+
+<Rbac
+    onChange={handleChange}
+    translations={hungarianTranslations}
+/>
+```
 
 ```typescript
 // UI Labels

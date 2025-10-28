@@ -84,7 +84,7 @@ var defaultTranslations = {
 var currentTranslations = /*#__PURE__*/_extends({}, defaultTranslations);
 // Translation function
 var I18n = {
-  // Main translation function
+  // Main translation function - can be overridden
   t: function t(key, fallback) {
     return currentTranslations[key] || fallback || key;
   },
@@ -725,7 +725,8 @@ var Rbac = function Rbac(_ref) {
     _ref$components = _ref.components,
     components = _ref$components === void 0 ? {} : _ref$components,
     admin = _ref.admin,
-    translations = _ref.translations;
+    translations = _ref.translations,
+    i18nFunction = _ref.i18nFunction;
   var _React$useState = React.useState(defaultValue),
     permissionsTable = _React$useState[0],
     setPermissionsTable = _React$useState[1];
@@ -740,7 +741,11 @@ var Rbac = function Rbac(_ref) {
     if (translations) {
       I18n.setTranslations(translations);
     }
-  }, [translations]);
+    // If i18nFunction is provided, override the I18n.t function
+    if (i18nFunction) {
+      I18n.t = i18nFunction;
+    }
+  }, [translations, i18nFunction]);
   useEffect(function () {
     setExpandedItems(getAllResources(permissionsTable));
   }, []);

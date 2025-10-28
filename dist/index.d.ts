@@ -37,7 +37,8 @@ interface RbacProps {
     translations?: {
         [key: string]: string;
     };
+    i18nFunction?: (key: string, fallback?: string) => string;
 }
-declare const Rbac: ({ defaultValue, onChange, resourceForbiddenCharsRegex, buttons, icons, components, admin, translations, }: RbacProps) => React.JSX.Element;
+declare const Rbac: ({ defaultValue, onChange, resourceForbiddenCharsRegex, buttons, icons, components, admin, translations, i18nFunction, }: RbacProps) => React.JSX.Element;
 export default Rbac;
 export { I18n };
