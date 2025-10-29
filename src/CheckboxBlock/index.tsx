@@ -252,7 +252,7 @@ const CheckboxBlock = ({
                     <TableRow>
                         {rolesOrdered.map(row => (
                             <StyledCell key={row}>
-                                <Components.RoleTag>{t(`admin_local.role.${row}`, row)}</Components.RoleTag>
+                                <Components.RoleTag>{t(`admin_local.role_names.${row}`, row)}</Components.RoleTag>
                                 {isReadOnly(row) ? null : (
                                     <RoleActions>
                                         <Icons.EditIcon
